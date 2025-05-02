@@ -29,13 +29,6 @@ class DashboardView extends HookWidget {
                   ),
                 ),
                 AssembleOverviewCards(),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(
-                //     horizontal: Gutters.md,
-                //     vertical: Gutters.sm,
-                //   ),
-                //   child: AssembleOverviewCards(),
-                // ),
                 CupertinoListSection.insetGrouped(
                   hasLeading: false,
                   backgroundColor: CupertinoColors.systemBackground,

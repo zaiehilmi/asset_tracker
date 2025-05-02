@@ -8,28 +8,30 @@ import 'package:ui/utils/extension/buildcontext.dart';
 class OverviewCard extends HookWidget {
   const OverviewCard({
     required this.title,
-    this.iconColor = AppColors.color1,
+    this.iconBackgroundColor = AppColors.color1,
+    this.iconColor = CupertinoColors.white,
     this.titleFontSize = 14,
-    this.subTitle = '',
-    this.subTitleColor = AppColors.color1,
-    this.subTitleFontSize,
-    this.spaceBetweenTitleAndSubTitle = MainAxisAlignment.center,
+    this.statNumber = '',
+    this.statNumberColor = AppColors.color1,
+    this.statNumberFontSize,
     this.backgroundColor = CupertinoColors.secondarySystemBackground,
     this.icon,
     this.iconSize = 16,
     this.isLoading = false,
+    this.titleColor = CupertinoColors.secondaryLabel,
     super.key,
   });
 
   final String title;
-  final Color? iconColor;
+  final Color titleColor;
+  final Color? iconBackgroundColor;
   final double titleFontSize;
-  final String? subTitle;
-  final Color? subTitleColor;
-  final double? subTitleFontSize;
+  final String? statNumber;
+  final Color? statNumberColor;
+  final double? statNumberFontSize;
   final IconData? icon;
   final double? iconSize;
-  final MainAxisAlignment spaceBetweenTitleAndSubTitle;
+  final Color? iconColor;
   final Color backgroundColor;
   final bool isLoading;
 
@@ -40,70 +42,55 @@ class OverviewCard extends HookWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(AppBorder.lg),
       ),
-      padding: const EdgeInsets.all(Gutters.md),
+      padding: const EdgeInsets.all(Gutters.sm),
       child: Column(
-        mainAxisAlignment: spaceBetweenTitleAndSubTitle,
-        spacing: Gutters.md,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: Gutters.sm,
         children: [
           Row(
             spacing: Gutters.sm,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (icon != null)
                 Container(
                   padding: EdgeInsets.all(Gutters.xs),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppBorder.full),
-                    color: iconColor,
+                    color: iconBackgroundColor,
                   ),
-                  child: Icon(
-                    icon,
-                    color: CupertinoColors.white,
-                    size: iconSize,
-                  ),
+                  child: Icon(icon, color: iconColor, size: iconSize),
                 ),
-
-              Flexible(
-                child: Text(
-                  title,
-                  style: context.textTheme.textStyle.copyWith(
-                    color: CupertinoColors.secondaryLabel,
-                    fontSize: titleFontSize,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  softWrap: true,
-                ),
+              Padding(
+                padding: EdgeInsets.only(right: Gutters.md),
+                child:
+                    isLoading
+                        ? CupertinoActivityIndicator(
+                          radius: 11,
+                          color: statNumberColor,
+                        )
+                        : Text(
+                          statNumber ?? '',
+                          style: context.textTheme.pickerTextStyle.copyWith(
+                            fontWeight: FontWeight.w800,
+                            fontSize: statNumberFontSize,
+                            color: statNumberColor,
+                          ),
+                        ),
               ),
             ],
           ),
 
-          Align(
-            alignment: Alignment.bottomRight,
-            child:
-                !isLoading
-                    ? RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: subTitle ?? '',
-                            style: context.textTheme.pickerTextStyle.copyWith(
-                              fontWeight: FontWeight.w800,
-                              fontSize: subTitleFontSize,
-                              color: subTitleColor,
-                            ),
-                          ),
-                          TextSpan(
-                            text: ' item',
-                            style: context.textTheme.textStyle.copyWith(
-                              color: subTitleColor?.withAlpha(180),
-                              fontSize: titleFontSize / 1.1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                    : CupertinoActivityIndicator(radius: 12),
+          Flexible(
+            child: Text(
+              title,
+              style: context.textTheme.textStyle.copyWith(
+                color: titleColor,
+                fontSize: titleFontSize,
+                fontWeight: FontWeight.w600,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),

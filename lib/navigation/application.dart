@@ -6,6 +6,7 @@ import 'package:ui/features/search/search_view.dart';
 
 const tabIconSize = 28.0;
 
+// TODO(navigation): tambah favorite.
 final tabBarItems = [
   const BottomNavigationBarItem(
     icon: Icon(Amicons.vuesax_chart_square, size: tabIconSize),
