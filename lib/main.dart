@@ -1,0 +1,34 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:ui/config.dart';
+import 'package:ui/navigation/application.dart';
+import 'package:ui/theme/theme_data.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
+
+  await Supabase.initialize(
+    url: Config.supabaseUrl,
+    anonKey: Config.supabaseKey,
+  );
+
+  runApp(const ProviderScope(child: MainApp()));
+}
+
+class MainApp extends HookWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoApp(theme: temaAplikasi, home: const Application());
+  }
+}
