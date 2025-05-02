@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ui/database/tables/items/item.dart';
 import 'package:ui/database/tables/items/item_repository.dart'
@@ -10,7 +9,6 @@ import 'package:ui/features/dashboard/widgets/_assemble_overview_cards.dart';
 import 'package:ui/features/dashboard/widgets/_list_section_header.dart';
 import 'package:ui/features/dashboard/widgets/_list_tile.dart';
 import 'package:ui/theme/guttters.dart';
-import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/widgets/sliver_nav_bar.dart';
 
 class DashboardView extends HookConsumerWidget {
