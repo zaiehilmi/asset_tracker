@@ -7,7 +7,7 @@ part of 'overview_viewmodel.dart';
 // **************************************************************************
 
 String _$overviewStatisticsVMHash() =>
-    r'bf2f5dff5181cba3538c656c8bd851fef7c132cb';
+    r'0b33694270097abea5f1a3402d9d03e027f18125';
 
 /// See also [overviewStatisticsVM].
 @ProviderFor(overviewStatisticsVM)

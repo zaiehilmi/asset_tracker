@@ -7,6 +7,7 @@ import 'package:ui/features/dashboard/widgets/_overview_card.dart'
     show OverviewCard;
 import 'package:ui/theme/color.dart' show AppColors;
 import 'package:ui/theme/guttters.dart' show Gutters;
+import 'package:ui/utils/extension/buildcontext.dart';
 
 class AssembleOverviewCards extends HookConsumerWidget {
   const AssembleOverviewCards({super.key});
@@ -24,8 +25,8 @@ class AssembleOverviewCards extends HookConsumerWidget {
         statNumber:
             vm.whenOrNull(data: (value) => value.totalItems.toString()) ?? '',
         iconBackgroundColor: CupertinoColors.systemGrey5,
-        iconColor: CupertinoColors.systemIndigo,
-        backgroundColor: CupertinoColors.systemIndigo,
+        iconColor: context.primaryColor,
+        backgroundColor: context.primaryColor,
         isLoading: vm.isLoading,
       ),
       OverviewCard(

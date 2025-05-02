@@ -14,7 +14,7 @@ class OverviewCard extends HookWidget {
     this.statNumber = '',
     this.statNumberColor = AppColors.color1,
     this.statNumberFontSize,
-    this.backgroundColor = CupertinoColors.secondarySystemBackground,
+    this.backgroundColor = CupertinoColors.systemGroupedBackground,
     this.icon,
     this.iconSize = 16,
     this.isLoading = false,
