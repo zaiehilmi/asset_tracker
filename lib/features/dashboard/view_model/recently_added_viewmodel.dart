@@ -9,8 +9,11 @@ part 'recently_added_viewmodel.g.dart';
 
 @riverpod
 FutureOr<List<RecentlyAddedModel>> recentlyAddedVM(Ref ref) async {
-  // TODO: buat sorting dari yang paling baru ke yang paling lama kat repository
-  final items = await ItemRepository().readAll();
+  final items = await ItemRepository().readAndSort(
+    column: ItemTable.addedDate,
+    limit: 5,
+    isAscending: false,
+  );
 
   talker.info('ada ${items.length} daripada 5 item terbaru ditambah');
 

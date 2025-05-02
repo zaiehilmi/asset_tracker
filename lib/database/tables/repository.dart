@@ -12,6 +12,13 @@ abstract interface class Repository<T> {
   // Future<List<T>> readByLike(String column, String pattern);
   // Future<List<T>> readByIn(String column, List<dynamic> values);
 
+  // sort operations
+  Future<List<T>> readAndSort({
+    required String column,
+    bool isAscending = true,
+    int? limit,
+  });
+
   // Write operations
   Future<T> insert(T data);
   // Future<List<T>> insertMany(List<Map<String, dynamic>> dataList);

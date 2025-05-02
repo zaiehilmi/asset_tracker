@@ -20,14 +20,11 @@ class CardItem extends HookWidget {
       ),
       child: Stack(
         children: [
-          Center(
-            child: ClipRRect(
-              child: Icon(
-                data.icon ?? Amicons.vuesax_slash,
-                size: 90,
-                color: CupertinoColors.secondarySystemGroupedBackground
-                    .withAlpha(40),
-              ),
+          ClipRRect(
+            child: Icon(
+              data.icon ?? Amicons.vuesax_slash,
+              size: 130,
+              color: CupertinoColors.darkBackgroundGray.withAlpha(55),
             ),
           ),
           Positioned(

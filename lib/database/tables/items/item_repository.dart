@@ -2,6 +2,7 @@ import 'package:ui/database/database_client.dart' show supabaseClient;
 import 'package:ui/database/exceptions/database_exception.dart';
 import 'package:ui/database/tables/items/item.dart';
 import 'package:ui/database/tables/repository.dart' show Repository;
+import 'package:ui/utils/talker.dart';
 
 typedef ListOfItems = List<Item>;
 
@@ -12,7 +13,7 @@ class ItemRepository implements Repository<Item> {
   Future<ListOfItems> readAll() async {
     try {
       final data = await _supabase.from(ItemTable.tableName).select();
-      return data.map((e) => Item.fromJson(e)).toList();
+      return data.map(Item.fromJson).toList();
     } catch (e) {
       throw DatabaseException('Failed to fetch all items: $e');
     }
@@ -63,7 +64,7 @@ class ItemRepository implements Repository<Item> {
           .select()
           .eq(column, value);
 
-      return data.map((e) => Item.fromJson(e)).toList();
+      return data.map(Item.fromJson).toList();
     } catch (e) {
       throw DatabaseException(
         'Failed to fetch items where $column equals $value: $e',
@@ -88,6 +89,29 @@ class ItemRepository implements Repository<Item> {
       return Item.fromJson(data);
     } catch (e) {
       throw DatabaseException('Failed to fetch item with ID $value: $e');
+    }
+  }
+
+  @override
+  Future<ListOfItems> readAndSort({
+    required String column,
+    bool isAscending = true,
+    int? limit,
+  }) async {
+    try {
+      final query = _supabase
+          .from(ItemTable.tableName)
+          .select()
+          .order(column, ascending: isAscending);
+
+      if (limit != null) {
+        return (await query.limit(limit)).map(Item.fromJson).toList();
+      }
+
+      return (await query).map(Item.fromJson).toList();
+    } catch (e) {
+      talker.handle(e);
+      throw DatabaseException('Gagal membaca dan sort: $e');
     }
   }
 

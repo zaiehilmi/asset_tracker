@@ -58,7 +58,7 @@ class MaintenanceLogRepository implements Repository<MaintenanceLog> {
           .select()
           .eq(column, value);
 
-      return data.map((e) => MaintenanceLog.fromJson(e)).toList();
+      return data.map(MaintenanceLog.fromJson).toList();
     } catch (e) {
       throw DatabaseException(
         'Failed to fetch maintenance logs where $column equals $value: $e',
@@ -85,6 +85,28 @@ class MaintenanceLogRepository implements Repository<MaintenanceLog> {
       throw DatabaseException(
         'Failed to fetch maintenance log with ID $value: $e',
       );
+    }
+  }
+
+  @override
+  Future<ListOfLogs> readAndSort({
+    required String column,
+    bool isAscending = true,
+    int? limit,
+  }) async {
+    try {
+      final query = _supabase
+          .from(MaintenanceLogTable.tableName)
+          .select(column)
+          .order(column, ascending: isAscending);
+
+      if (limit != null) {
+        return (await query.limit(limit)).map(MaintenanceLog.fromJson).toList();
+      }
+
+      return (await query).map(MaintenanceLog.fromJson).toList();
+    } catch (e) {
+      throw DatabaseException('Gagal membaca dan sort: $e');
     }
   }
 

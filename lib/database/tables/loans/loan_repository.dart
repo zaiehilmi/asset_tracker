@@ -87,6 +87,28 @@ class LoanRepository implements Repository<Loan> {
   }
 
   @override
+  Future<ListOfLoans> readAndSort({
+    required String column,
+    bool isAscending = true,
+    int? limit,
+  }) async {
+    try {
+      final query = _supabase
+          .from(LoanTable.tableName)
+          .select(column)
+          .order(column, ascending: isAscending);
+
+      if (limit != null) {
+        return (await query.limit(limit)).map(Loan.fromJson).toList();
+      }
+
+      return (await query).map(Loan.fromJson).toList();
+    } catch (e) {
+      throw DatabaseException('Gagal membaca dan sort: $e');
+    }
+  }
+
+  @override
   Future<Loan> insert(Loan data) async {
     try {
       if (data.itemId.isEmpty) {

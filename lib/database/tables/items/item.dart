@@ -122,8 +122,9 @@ extension ItemUtility on Item {
     if (forInsert) {
       map[ItemTable.addedDate] = DateTime.now().toIso8601String();
 
-      map.remove(ItemTable.id);
-      map.remove(ItemTable.addedDate);
+      map
+        ..remove(ItemTable.id)
+        ..remove(ItemTable.addedDate);
     }
 
     return map;
