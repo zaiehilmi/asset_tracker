@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ui/features/dashboard/widgets/_actions_view.dart';
 
 import 'package:ui/features/dashboard/widgets/_assemble_overview_cards.dart';
 import 'package:ui/features/dashboard/widgets/_recently_added_view.dart';
@@ -29,6 +30,7 @@ class DashboardView extends HookConsumerWidget {
                   ),
                 ),
                 AssembleOverviewCards(),
+                ActionsView(),
                 RecentlyAddedView(),
               ],
             ),
