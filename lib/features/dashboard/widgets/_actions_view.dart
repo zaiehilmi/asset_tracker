@@ -22,6 +22,7 @@ class ActionsView extends HookConsumerWidget {
       _buildTile(
         context,
         title: 'Imbas Kod Bar Item',
+        subtitle: 'akan datang',
         icon: Amicons.iconly_camera,
         iconBackgroundColor: CupertinoColors.systemGreen,
         onTap: () {},
@@ -29,6 +30,7 @@ class ActionsView extends HookConsumerWidget {
       _buildTile(
         context,
         title: 'Urus Pinjaman, Servis, dan lain-lain',
+        subtitle: 'akan datang',
         icon: Amicons.iconly_paper_plus,
         iconBackgroundColor: CupertinoColors.systemBrown,
         onTap: () {},
@@ -44,12 +46,14 @@ class ActionsView extends HookConsumerWidget {
   }
 }
 
+// TODO: guna CupertinoPopupSurface untuk keluarkan aksi
 CupertinoListTile _buildTile(
   BuildContext context, {
   required String title,
   required IconData icon,
   required Color iconBackgroundColor,
   required VoidCallback onTap,
+  String? subtitle,
 }) {
   return CupertinoListTile(
     backgroundColor: CupertinoColors.systemGroupedBackground,
@@ -62,6 +66,7 @@ CupertinoListTile _buildTile(
       overflow: TextOverflow.ellipsis,
     ),
     trailing: CupertinoListTileChevron(),
+    subtitle: (subtitle != null) ? Text(subtitle) : null,
     onTap: onTap,
   );
 }

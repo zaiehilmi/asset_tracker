@@ -1,8 +1,8 @@
 import 'package:amicons/amicons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:ui/features/dashboard/dashboard_view.dart';
-import 'package:ui/features/search/search_view.dart';
+import 'package:ui/features/dashboard/dashboard_screen.dart';
+import 'package:ui/features/search/main_search_screen.dart';
 
 const tabIconSize = 28.0;
 
@@ -26,12 +26,12 @@ final tabBarItems = [
 ];
 
 final tabViews = <Widget>[
-  DashboardView(),
+  DashboardScreen(),
   const CupertinoPageScaffold(
     navigationBar: CupertinoNavigationBar(middle: Text('Profil')),
     child: Center(child: Text('Kandungan Profil')),
   ),
-  SearchView(),
+  MainSearchScreen(),
 ];
 
 class Application extends HookWidget {

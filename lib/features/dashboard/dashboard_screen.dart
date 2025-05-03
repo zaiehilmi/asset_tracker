@@ -10,8 +10,8 @@ import 'package:ui/widgets/sliver_nav_bar.dart';
 
 const _title = 'Ringkasan';
 
-class DashboardView extends HookConsumerWidget {
-  const DashboardView({super.key});
+class DashboardScreen extends HookConsumerWidget {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

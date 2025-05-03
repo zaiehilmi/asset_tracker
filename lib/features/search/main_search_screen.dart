@@ -5,8 +5,8 @@ import 'package:ui/features/search/widgets/_card_item.dart';
 import 'package:ui/theme/guttters.dart';
 import 'package:ui/widgets/sliver_nav_bar.dart';
 
-class SearchView extends HookWidget {
-  const SearchView({super.key});
+class MainSearchScreen extends HookWidget {
+  const MainSearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
