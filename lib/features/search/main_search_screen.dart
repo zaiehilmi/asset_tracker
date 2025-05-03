@@ -59,10 +59,11 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     return Container(
-      color: CupertinoColors.systemBackground, // Untuk background yang solid
+      color: CupertinoColors.systemBackground,
+      height: 100,
       padding: const EdgeInsets.symmetric(
         horizontal: Gutters.md,
-        vertical: Gutters.sm,
+        vertical: Gutters.md,
       ),
       child: const CupertinoSearchTextField(
         autocorrect: false,
@@ -72,13 +73,12 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
-  }
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 
   @override
-  double get maxExtent => 52;
+  double get maxExtent => 75;
 
   @override
-  double get minExtent => 52;
+  double get minExtent => 75;
 }
