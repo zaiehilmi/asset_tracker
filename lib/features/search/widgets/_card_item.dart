@@ -24,7 +24,7 @@ class CardItem extends HookWidget {
             child: Icon(
               data.icon ?? Amicons.vuesax_slash,
               size: 130,
-              color: CupertinoColors.darkBackgroundGray.withAlpha(55),
+              color: CupertinoColors.darkBackgroundGray.withAlpha(20),
             ),
           ),
           Positioned(

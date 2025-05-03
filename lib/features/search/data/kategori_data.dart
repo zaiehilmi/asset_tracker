@@ -25,12 +25,12 @@ List<KategoriData> kategoriData =
           (kategori) => switch (kategori) {
             'Elektronik' => KategoriData(
               kategori: kategori,
-              icon: Amicons.flaticon_computer_rounded_fill,
+              icon: Amicons.vuesax_smart_home_fill,
               backgroundColor: CupertinoColors.systemBlue,
             ),
             'Perabot' => KategoriData(
               kategori: kategori,
-              icon: Amicons.lucide_sofa,
+              icon: Amicons.flaticon_bed_rounded_fill,
               backgroundColor: CupertinoColors.systemBrown,
             ),
             'Makanan & Minuman' => KategoriData(
@@ -50,7 +50,7 @@ List<KategoriData> kategoriData =
             ),
             'Kebersihan' => KategoriData(
               kategori: kategori,
-              icon: Amicons.remix_brush_fill,
+              icon: Amicons.remix_water_flash_fill,
               backgroundColor: CupertinoColors.systemTeal,
             ),
             'Alat Tulis' => KategoriData(
@@ -70,7 +70,7 @@ List<KategoriData> kategoriData =
             ),
             'Barangan Dapur' => KategoriData(
               kategori: kategori,
-              icon: Amicons.remix_knife_fill,
+              icon: Amicons.remix_shopping_basket2_fill,
               backgroundColor: CupertinoColors.systemYellow,
             ),
             'Barangan Sukan' => KategoriData(

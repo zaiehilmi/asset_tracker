@@ -11,7 +11,7 @@ final tabBarItems = [
   const BottomNavigationBarItem(
     icon: Icon(Amicons.vuesax_chart_square, size: tabIconSize),
     activeIcon: Icon(Amicons.vuesax_chart_square_fill, size: tabIconSize),
-    label: 'Utama',
+    label: 'Ringkasan',
   ),
   const BottomNavigationBarItem(
     icon: Icon(Amicons.vuesax_user, size: tabIconSize),
@@ -19,8 +19,8 @@ final tabBarItems = [
     label: 'Profil',
   ),
   const BottomNavigationBarItem(
-    icon: Icon(Amicons.vuesax_search_normal, size: tabIconSize),
-    activeIcon: Icon(Amicons.vuesax_search_normal_fill, size: tabIconSize),
+    icon: Icon(Amicons.iconly_search, size: tabIconSize),
+    activeIcon: Icon(Amicons.iconly_search_fill, size: tabIconSize),
     label: 'Cari',
   ),
 ];
