@@ -4,6 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ui/config.dart';
+import 'package:ui/localization/cupertino_localization_ms.dart'
+    show CupertinoLocalizationsMsDelegate;
 import 'package:ui/navigation/application.dart';
 import 'package:ui/theme/theme_data.dart';
 
@@ -29,6 +31,16 @@ class MainApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(theme: temaAplikasi, home: const Application());
+    return CupertinoApp(
+      theme: temaAplikasi,
+      localizationsDelegates: [
+        DefaultWidgetsLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate,
+        CupertinoLocalizationsMsDelegate(),
+      ],
+      supportedLocales: const [Locale('ms')],
+      locale: const Locale('ms'),
+      home: const Application(),
+    );
   }
 }

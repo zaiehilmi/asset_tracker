@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   flutter_gradient_animation_text: ^1.0.2
   flutter_hooks: ^0.21.2
+  flutter_localizations:
+    sdk: flutter
   freezed: ^3.0.6
   freezed_annotation: ^3.0.0
   hooks_riverpod: ^2.6.1
