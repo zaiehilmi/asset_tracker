@@ -1,6 +1,7 @@
 import 'package:amicons/amicons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ui/features/item_management/add_item_screen.dart';
 
 import 'package:ui/theme/guttters.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
@@ -17,7 +18,9 @@ class ActionsView extends HookConsumerWidget {
         title: 'Tambah Item',
         icon: Amicons.lucide_plus,
         iconBackgroundColor: CupertinoColors.activeBlue,
-        onTap: () {},
+        onTap:
+            () =>
+                context.fullScreenDialogRoute(builder: (_) => AddItemScreen()),
       ),
       _buildTile(
         context,
