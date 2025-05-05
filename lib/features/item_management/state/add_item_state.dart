@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ui/database/enums/enums.dart';
 
 part 'add_item_state.freezed.dart';
 part 'add_item_state.g.dart';
