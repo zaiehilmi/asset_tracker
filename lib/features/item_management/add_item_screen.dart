@@ -3,7 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:ui/database/enums/enums.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
+import 'package:ui/utils/extension/datetime.dart';
 import 'package:ui/utils/helper/placeholder_for_picker.dart';
+import 'package:ui/utils/helper/show_picker_date.dart';
 import 'package:ui/utils/helper/show_picker_modal.dart' show showPickerModal;
 import 'package:ui/widgets/fullscreen_dialog_scaffold.dart';
 import 'package:ui/widgets/prefix_in_text_form.dart';
@@ -26,6 +28,8 @@ class AddItemScreen extends HookWidget {
     );
     final categoryController = useTextEditingController();
     final statusController = useTextEditingController();
+    final purchaseDate = useState<DateTime?>(null);
+    final expiryDate = useState<DateTime?>(null);
 
     useListenable(sourceController);
     useListenable(categoryController);
@@ -147,27 +151,44 @@ class AddItemScreen extends HookWidget {
             ),
             CupertinoFormSection.insetGrouped(
               children: [
-                CupertinoTextFormFieldRow(
-                  prefix: PrefixInTextForm(text: 'Tarikh beli', width: 70),
-                  placeholder: 'Tekan untuk memilih tarikh',
-                  style: textStyle,
-                  keyboardType: TextInputType.number,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan nama barang';
+                CupertinoListTile(
+                  title: PrefixInTextForm(text: 'Tarikh beli', width: 70),
+                  additionalInfo: placeholderForPicker(
+                    value: purchaseDate.value.tarikhNumeral,
+                    style: textStyle,
+                    placeholder: 'Sila pilih tarikh',
+                  ),
+                  trailing: CupertinoListTileChevron(),
+                  onTap: () {
+                    if (purchaseDate.value == null) {
+                      purchaseDate.value = DateTime.now();
                     }
-                    return null;
+
+                    showPickerDate<DateTime>(
+                      context,
+                      date: purchaseDate,
+                      showClearButton: true,
+                    );
                   },
                 ),
-                CupertinoTextFormFieldRow(
-                  prefix: PrefixInTextForm(text: 'Tarikh luput', width: 70),
-                  placeholder: 'Tekan untuk memilih tarikh',
-                  style: textStyle,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan nama barang';
+                CupertinoListTile(
+                  title: PrefixInTextForm(text: 'Tarikh luput', width: 70),
+                  additionalInfo: placeholderForPicker(
+                    value: expiryDate.value.tarikhNumeral,
+                    style: textStyle,
+                    placeholder: 'Sila pilih tarikh',
+                  ),
+                  trailing: CupertinoListTileChevron(),
+                  onTap: () {
+                    if (expiryDate.value == null) {
+                      expiryDate.value = DateTime.now();
                     }
-                    return null;
+
+                    showPickerDate<DateTime>(
+                      context,
+                      date: expiryDate,
+                      showClearButton: true,
+                    );
                   },
                 ),
               ],
