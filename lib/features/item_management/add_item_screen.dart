@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ui/features/item_management/view_model/add_item_viewmodel.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/utils/extension/datetime.dart';
+import 'package:ui/utils/format_harga.dart';
 import 'package:ui/utils/helper/placeholder_for_picker.dart';
 import 'package:ui/utils/helper/show_picker_date.dart';
 import 'package:ui/utils/helper/show_picker_modal.dart' show showPickerModal;
@@ -128,7 +129,7 @@ class AddItemScreen extends HookConsumerWidget {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
-                    final formattedPrice = formatPrice(value);
+                    final formattedPrice = formatHarga(value);
 
                     if (formattedPrice != value) {
                       hargaController.value = TextEditingValue(
@@ -226,15 +227,4 @@ class AddItemScreen extends HookConsumerWidget {
       ),
     );
   }
-}
-
-String formatPrice(String value) {
-  if (value.isEmpty) return '0.00';
-
-  final format = value.replaceAll(RegExp('[^0-9]'), '');
-  final cents = int.parse(format);
-
-  final keSen = (cents / 100).toStringAsFixed(2);
-
-  return keSen;
 }
