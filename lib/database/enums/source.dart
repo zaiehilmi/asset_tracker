@@ -25,4 +25,12 @@ enum Source {
     Source.hadiah => 'Hadiah',
     Source.terpakai => 'Terpakai',
   };
+
+  static Source fromDisplay(String value) {
+    return Source.values.firstWhere(
+      (source) => source.toDisplay() == value,
+      orElse:
+          () => throw ArgumentError('Nilai paparan sumber tidak sah: $value'),
+    );
+  }
 }

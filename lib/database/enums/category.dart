@@ -57,4 +57,12 @@ enum Category {
     Category.baranganSukan => 'Barangan Sukan',
     Category.baranganHaiwanPeliharaan => 'Barangan Haiwan Peliharaan',
   };
+
+  static Category fromDisplay(String value) {
+    return Category.values.firstWhere(
+      (category) => category.toDisplay() == value,
+      orElse:
+          () => throw ArgumentError('Nilai paparan kategori tidak sah: $value'),
+    );
+  }
 }

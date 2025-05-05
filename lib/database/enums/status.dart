@@ -30,11 +30,19 @@ enum Status {
 
   String toDisplay() => switch (this) {
     Status.tersedia => 'Tersedia',
-    Status.sedangDiguna => 'Sedang Diguna',
-    Status.habisDiguna => 'Habis Diguna',
+    Status.sedangDiguna => 'Sedang digunakan',
+    Status.habisDiguna => 'Habis',
     Status.rosak => 'Rosak',
     Status.dalamPembaikan => 'Dalam Pembaikan',
     Status.hilang => 'Hilang',
     Status.dilupuskan => 'Dilupuskan',
   };
+
+  static Status fromDisplay(String value) {
+    return Status.values.firstWhere(
+      (status) => status.toDisplay() == value,
+      orElse:
+          () => throw ArgumentError('Nilai paparan status tidak sah: $value'),
+    );
+  }
 }
