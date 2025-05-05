@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:ui/theme/guttters.dart';
 
-void showPicker<T>(BuildContext context, {required Widget child}) =>
-    showCupertinoModalPopup<void>(
+Future<T?> showPicker<T>(BuildContext context, {required Widget child}) async =>
+    showCupertinoModalPopup<T>(
       context: context,
       builder:
           (BuildContext context) => Container(

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:ui/database/enums/enums.dart';
+import 'package:ui/features/item_management/view_model/add_item_viewmodel.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/utils/extension/datetime.dart';
 import 'package:ui/utils/helper/placeholder_for_picker.dart';
@@ -10,30 +11,30 @@ import 'package:ui/utils/helper/show_picker_modal.dart' show showPickerModal;
 import 'package:ui/widgets/fullscreen_dialog_scaffold.dart';
 import 'package:ui/widgets/prefix_in_text_form.dart';
 
-final List<String> _sourceListString =
-    Source.values.map((value) => value.toDisplay()).toList();
-final List<String> _categoryListString =
-    Category.values.map((value) => value.toDisplay()).toList();
-final List<String> _statusListString =
-    Status.values.map((value) => value.toDisplay()).toList();
-
-class AddItemScreen extends HookWidget {
+class AddItemScreen extends HookConsumerWidget {
   const AddItemScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useState(GlobalKey<FormState>());
-    final sourceController = useTextEditingController(
-      text: _sourceListString[0],
+    final viewModel = ref.watch(addItemViewModelProvider);
+    final viewModelNotifier = ref.read(addItemViewModelProvider.notifier);
+
+    final namaController = useTextEditingController();
+    final huraianController = useTextEditingController();
+    final hargaController = useTextEditingController();
+    final sumberController = useTextEditingController(
+      text: viewModelNotifier.sourceListString[0],
     );
-    final categoryController = useTextEditingController();
+    final kategoriController = useTextEditingController();
     final statusController = useTextEditingController();
-    final purchaseDate = useState<DateTime?>(null);
-    final expiryDate = useState<DateTime?>(null);
+    final tarikhPembelian = useState<DateTime?>(null);
+    final tarikhLuput = useState<DateTime?>(null);
+
     final nameFocusNode = useFocusNode(skipTraversal: true);
 
-    useListenable(sourceController);
-    useListenable(categoryController);
+    useListenable(sumberController);
+    useListenable(kategoriController);
     useListenable(statusController);
 
     final textStyle = context.textTheme.textStyle.copyWith(fontSize: 14);
@@ -48,7 +49,11 @@ class AddItemScreen extends HookWidget {
       title: const Text('Tambah Item Baharu'),
       trailing: CupertinoButton(
         padding: EdgeInsets.zero,
-        onPressed: () {},
+        onPressed: () {
+          if (formKey.value.currentState?.validate() ?? false) {
+            viewModelNotifier.onSubmit();
+          }
+        },
         child: const Text('Simpan'),
       ),
       child: Form(
@@ -61,10 +66,14 @@ class AddItemScreen extends HookWidget {
               header: const Text('Maklumat Asas'),
               children: [
                 CupertinoTextFormFieldRow(
+                  controller: namaController,
                   focusNode: nameFocusNode,
                   prefix: PrefixInTextForm(text: 'Nama', isRequired: true),
                   placeholder: 'Shokubutsu sabun mandi',
                   style: textStyle,
+                  textCapitalization: TextCapitalization.sentences,
+                  autocorrect: false,
+                  autovalidateMode: AutovalidateMode.onUnfocus,
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
                       return 'Masukkan nama barang';
@@ -73,24 +82,24 @@ class AddItemScreen extends HookWidget {
                   },
                 ),
                 CupertinoTextFormFieldRow(
+                  controller: huraianController,
+                  initialValue: viewModel.huraian,
+                  onChanged: viewModelNotifier.setHuraian,
                   prefix: PrefixInTextForm(text: 'Huraian'),
                   placeholder: 'Huraian',
                   style: textStyle,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan nama barang';
-                    }
-                    return null;
-                  },
+                  textCapitalization: TextCapitalization.sentences,
+                  autocorrect: false,
                 ),
               ],
             ),
+
             CupertinoFormSection.insetGrouped(
               children: [
                 CupertinoListTile(
                   title: PrefixInTextForm(text: 'Sumber'),
                   additionalInfo: placeholderForPicker(
-                    value: sourceController.text,
+                    value: sumberController.text,
                     style: textStyle,
                     placeholder: 'Sila pilih',
                   ),
@@ -99,34 +108,42 @@ class AddItemScreen extends HookWidget {
                     nameFocusNode.unfocus();
                     showPickerModal(
                       context,
-                      items: _sourceListString,
-                      controller: sourceController,
+                      items: viewModelNotifier.sourceListString,
+                      controller: sumberController,
                       itemLabelBuilder: (String item) => item,
                     );
                   },
                 ),
               ],
             ),
+
             CupertinoFormSection.insetGrouped(
               clipBehavior: Clip.hardEdge,
               header: const Text('Perincian lain'),
               children: [
                 CupertinoTextFormFieldRow(
+                  controller: hargaController,
                   prefix: PrefixInTextForm(text: 'RM'),
                   placeholder: '0.00',
                   style: textStyle,
                   keyboardType: TextInputType.number,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan nama barang';
+                  onChanged: (value) {
+                    final formattedPrice = formatPrice(value);
+
+                    if (formattedPrice != value) {
+                      hargaController.value = TextEditingValue(
+                        text: formattedPrice,
+                        selection: TextSelection.collapsed(
+                          offset: formattedPrice.length,
+                        ),
+                      );
                     }
-                    return null;
                   },
                 ),
                 CupertinoListTile(
                   title: PrefixInTextForm(text: 'Kategori'),
                   additionalInfo: placeholderForPicker(
-                    value: categoryController.text,
+                    value: kategoriController.text,
                     style: textStyle,
                     placeholder: 'Sila pilih',
                   ),
@@ -135,8 +152,8 @@ class AddItemScreen extends HookWidget {
                     nameFocusNode.unfocus();
                     showPickerModal(
                       context,
-                      items: _categoryListString,
-                      controller: categoryController,
+                      items: viewModelNotifier.categoryListString,
+                      controller: kategoriController,
                       itemLabelBuilder: (String item) => item,
                     );
                   },
@@ -151,9 +168,10 @@ class AddItemScreen extends HookWidget {
                   trailing: CupertinoListTileChevron(),
                   onTap: () {
                     nameFocusNode.unfocus();
+
                     showPickerModal(
                       context,
-                      items: _statusListString,
+                      items: viewModelNotifier.statusListString,
                       controller: statusController,
                       itemLabelBuilder: (String item) => item,
                     );
@@ -166,20 +184,20 @@ class AddItemScreen extends HookWidget {
                 CupertinoListTile(
                   title: PrefixInTextForm(text: 'Tarikh beli', width: 70),
                   additionalInfo: placeholderForPicker(
-                    value: purchaseDate.value.tarikhNumeral,
+                    value: tarikhPembelian.value.tarikhNumeral,
                     style: textStyle,
                     placeholder: 'Sila pilih tarikh',
                   ),
                   trailing: CupertinoListTileChevron(),
                   onTap: () {
                     nameFocusNode.unfocus();
-                    if (purchaseDate.value == null) {
-                      purchaseDate.value = DateTime.now();
+                    if (tarikhPembelian.value == null) {
+                      tarikhPembelian.value = DateTime.now();
                     }
 
                     showPickerDate<DateTime>(
                       context,
-                      date: purchaseDate,
+                      date: tarikhPembelian,
                       showClearButton: true,
                     );
                   },
@@ -187,7 +205,7 @@ class AddItemScreen extends HookWidget {
                 CupertinoListTile(
                   title: PrefixInTextForm(text: 'Tarikh luput', width: 70),
                   additionalInfo: placeholderForPicker(
-                    value: expiryDate.value.tarikhNumeral,
+                    value: tarikhLuput.value.tarikhNumeral,
                     style: textStyle,
                     placeholder: 'Sila pilih tarikh',
                   ),
@@ -196,7 +214,7 @@ class AddItemScreen extends HookWidget {
                     nameFocusNode.unfocus();
                     showPickerDate<DateTime>(
                       context,
-                      date: expiryDate,
+                      date: tarikhLuput,
                       showClearButton: true,
                     );
                   },
@@ -208,4 +226,15 @@ class AddItemScreen extends HookWidget {
       ),
     );
   }
+}
+
+String formatPrice(String value) {
+  if (value.isEmpty) return '0.00';
+
+  final format = value.replaceAll(RegExp('[^0-9]'), '');
+  final cents = int.parse(format);
+
+  final keSen = (cents / 100).toStringAsFixed(2);
+
+  return keSen;
 }
