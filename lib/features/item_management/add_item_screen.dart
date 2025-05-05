@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:ui/database/enums/enums.dart';
-import 'package:ui/theme/guttters.dart';
-import 'package:ui/utils/extension/buildcontext.dart';
 
+import 'package:ui/database/enums/enums.dart';
+import 'package:ui/utils/extension/buildcontext.dart';
+import 'package:ui/utils/helper/placeholder_for_picker.dart';
+import 'package:ui/utils/helper/show_picker_modal.dart' show showPickerModal;
 import 'package:ui/widgets/fullscreen_dialog_scaffold.dart';
 import 'package:ui/widgets/prefix_in_text_form.dart';
 
@@ -25,6 +26,10 @@ class AddItemScreen extends HookWidget {
     );
     final categoryController = useTextEditingController();
     final statusController = useTextEditingController();
+
+    useListenable(sourceController);
+    useListenable(categoryController);
+    useListenable(statusController);
 
     final textStyle = context.textTheme.textStyle.copyWith(fontSize: 14);
 
@@ -72,24 +77,21 @@ class AddItemScreen extends HookWidget {
             ),
             CupertinoFormSection.insetGrouped(
               children: [
-                CupertinoTextFormFieldRow(
-                  controller: sourceController,
-                  prefix: PrefixInTextForm(text: 'Sumber'),
-                  style: textStyle,
-                  readOnly: true,
+                CupertinoListTile(
+                  title: PrefixInTextForm(text: 'Sumber'),
+                  additionalInfo: placeholderForPicker(
+                    value: sourceController.text,
+                    style: textStyle,
+                    placeholder: 'Sila pilih',
+                  ),
+                  trailing: CupertinoListTileChevron(),
                   onTap:
-                      () => _showPickerModal(
+                      () => showPickerModal(
                         context,
                         items: _sourceListString,
                         controller: sourceController,
                         itemLabelBuilder: (String item) => item,
                       ),
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan nama barang';
-                    }
-                    return null;
-                  },
                 ),
               ],
             ),
@@ -109,45 +111,37 @@ class AddItemScreen extends HookWidget {
                     return null;
                   },
                 ),
-                CupertinoTextFormFieldRow(
-                  controller: categoryController,
-                  prefix: PrefixInTextForm(text: 'Kategori'),
-                  placeholder: 'Sila pilih',
-                  style: textStyle,
-                  readOnly: true,
+                CupertinoListTile(
+                  title: PrefixInTextForm(text: 'Kategori'),
+                  additionalInfo: placeholderForPicker(
+                    value: categoryController.text,
+                    style: textStyle,
+                    placeholder: 'Sila pilih',
+                  ),
+                  trailing: CupertinoListTileChevron(),
                   onTap:
-                      () => _showPickerModal(
+                      () => showPickerModal(
                         context,
                         items: _categoryListString,
                         controller: categoryController,
                         itemLabelBuilder: (String item) => item,
                       ),
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan nama barang';
-                    }
-                    return null;
-                  },
                 ),
-                CupertinoTextFormFieldRow(
-                  controller: statusController,
-                  prefix: PrefixInTextForm(text: 'Status'),
-                  placeholder: 'Sila pilih',
-                  style: textStyle,
-                  readOnly: true,
+                CupertinoListTile(
+                  title: PrefixInTextForm(text: 'Status'),
+                  additionalInfo: placeholderForPicker(
+                    value: statusController.text,
+                    style: textStyle,
+                    placeholder: 'Sila pilih',
+                  ),
+                  trailing: CupertinoListTileChevron(),
                   onTap:
-                      () => _showPickerModal(
+                      () => showPickerModal(
                         context,
                         items: _statusListString,
                         controller: statusController,
                         itemLabelBuilder: (String item) => item,
                       ),
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Sila pilih status';
-                    }
-                    return null;
-                  },
                 ),
               ],
             ),
@@ -183,52 +177,4 @@ class AddItemScreen extends HookWidget {
       ),
     );
   }
-}
-
-// Letakkan di luar class AddItemScreen
-void _showPickerModal<T>(
-  BuildContext context, {
-  required List<T> items,
-  required TextEditingController controller,
-  required String Function(T) itemLabelBuilder,
-}) {
-  showCupertinoModalPopup<void>(
-    context: context,
-    builder:
-        (BuildContext context) => Container(
-          height: 220,
-          padding: const EdgeInsets.only(top: Gutters.sm),
-          margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          color: CupertinoColors.systemBackground.resolveFrom(context),
-          child: CupertinoPicker(
-            magnification: 1.22,
-            squeeze: 1.2,
-            useMagnifier: true,
-            itemExtent: 32,
-            scrollController: FixedExtentScrollController(
-              initialItem: items.indexWhere(
-                (item) => itemLabelBuilder(item) == controller.text,
-              ),
-            ),
-            onSelectedItemChanged: (int selectedIndex) {
-              controller.text = itemLabelBuilder(items[selectedIndex]);
-            },
-            children:
-                items
-                    .map(
-                      (item) => Center(
-                        child: Text(
-                          itemLabelBuilder(item),
-                          style: context.textTheme.pickerTextStyle.copyWith(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-          ),
-        ),
-  );
 }
