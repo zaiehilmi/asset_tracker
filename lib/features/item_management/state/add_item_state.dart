@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:ui/database/enums/enums.dart';
 
 part 'add_item_state.freezed.dart';
 part 'add_item_state.g.dart';
@@ -14,6 +15,10 @@ sealed class AddItemState with _$AddItemState {
     @Default(null) String? status,
     DateTime? tarikhPembelian,
     DateTime? tarikhLuput,
+
+    @Default([]) List<String> senaraiSumber,
+    @Default([]) List<String> senaraiKategori,
+    @Default([]) List<String> senaraiStatus,
   }) = _AddItemState;
 
   factory AddItemState.fromJson(Map<String, dynamic> json) =>

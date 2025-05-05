@@ -12,7 +12,12 @@ part 'add_item_viewmodel.g.dart';
 class AddItemViewModel extends _$AddItemViewModel {
   @override
   AddItemState build() {
-    return const AddItemState();
+    return AddItemState(
+      senaraiSumber: Source.values.map((value) => value.toDisplay()).toList(),
+      senaraiKategori:
+          Category.values.map((value) => value.toDisplay()).toList(),
+      senaraiStatus: Status.values.map((value) => value.toDisplay()).toList(),
+    );
   }
 
   void setNama(String value) => state = state.copyWith(nama: value);
@@ -25,13 +30,6 @@ class AddItemViewModel extends _$AddItemViewModel {
       state = state.copyWith(tarikhPembelian: value);
   void setTarikhLuput(DateTime? value) =>
       state = state.copyWith(tarikhLuput: value);
-
-  final List<String> sourceListString =
-      Source.values.map((value) => value.toDisplay()).toList();
-  final List<String> categoryListString =
-      Category.values.map((value) => value.toDisplay()).toList();
-  final List<String> statusListString =
-      Status.values.map((value) => value.toDisplay()).toList();
 
   Future<void> onSubmit() async {
     final item = Item(

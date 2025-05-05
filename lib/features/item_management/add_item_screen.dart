@@ -25,7 +25,7 @@ class AddItemScreen extends HookConsumerWidget {
     final huraianController = useTextEditingController();
     final hargaController = useTextEditingController();
     final sumberController = useTextEditingController(
-      text: viewModelNotifier.sourceListString[0],
+      text: viewModel.senaraiSumber[0],
     );
     final kategoriController = useTextEditingController();
     final statusController = useTextEditingController();
@@ -109,7 +109,7 @@ class AddItemScreen extends HookConsumerWidget {
                     nameFocusNode.unfocus();
                     showPickerModal(
                       context,
-                      items: viewModelNotifier.sourceListString,
+                      items: viewModel.senaraiSumber,
                       controller: sumberController,
                       itemLabelBuilder: (String item) => item,
                     );
@@ -153,7 +153,7 @@ class AddItemScreen extends HookConsumerWidget {
                     nameFocusNode.unfocus();
                     showPickerModal(
                       context,
-                      items: viewModelNotifier.categoryListString,
+                      items: viewModel.senaraiKategori,
                       controller: kategoriController,
                       itemLabelBuilder: (String item) => item,
                     );
@@ -172,7 +172,7 @@ class AddItemScreen extends HookConsumerWidget {
 
                     showPickerModal(
                       context,
-                      items: viewModelNotifier.statusListString,
+                      items: viewModel.senaraiStatus,
                       controller: statusController,
                       itemLabelBuilder: (String item) => item,
                     );
