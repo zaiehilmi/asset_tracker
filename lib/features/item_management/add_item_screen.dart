@@ -30,12 +30,18 @@ class AddItemScreen extends HookWidget {
     final statusController = useTextEditingController();
     final purchaseDate = useState<DateTime?>(null);
     final expiryDate = useState<DateTime?>(null);
+    final nameFocusNode = useFocusNode(skipTraversal: true);
 
     useListenable(sourceController);
     useListenable(categoryController);
     useListenable(statusController);
 
     final textStyle = context.textTheme.textStyle.copyWith(fontSize: 14);
+
+    useEffect(() {
+      nameFocusNode.requestFocus();
+      return null;
+    }, const []);
 
     return FullScreenDialogScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
@@ -50,12 +56,12 @@ class AddItemScreen extends HookWidget {
 
         child: Column(
           children: [
-            // TODO: tambah animasi barcode nanti kat atas ni
             CupertinoFormSection.insetGrouped(
               clipBehavior: Clip.hardEdge,
               header: const Text('Maklumat Asas'),
               children: [
                 CupertinoTextFormFieldRow(
+                  focusNode: nameFocusNode,
                   prefix: PrefixInTextForm(text: 'Nama', isRequired: true),
                   placeholder: 'Shokubutsu sabun mandi',
                   style: textStyle,
@@ -89,13 +95,15 @@ class AddItemScreen extends HookWidget {
                     placeholder: 'Sila pilih',
                   ),
                   trailing: CupertinoListTileChevron(),
-                  onTap:
-                      () => showPickerModal(
-                        context,
-                        items: _sourceListString,
-                        controller: sourceController,
-                        itemLabelBuilder: (String item) => item,
-                      ),
+                  onTap: () {
+                    nameFocusNode.unfocus();
+                    showPickerModal(
+                      context,
+                      items: _sourceListString,
+                      controller: sourceController,
+                      itemLabelBuilder: (String item) => item,
+                    );
+                  },
                 ),
               ],
             ),
@@ -123,13 +131,15 @@ class AddItemScreen extends HookWidget {
                     placeholder: 'Sila pilih',
                   ),
                   trailing: CupertinoListTileChevron(),
-                  onTap:
-                      () => showPickerModal(
-                        context,
-                        items: _categoryListString,
-                        controller: categoryController,
-                        itemLabelBuilder: (String item) => item,
-                      ),
+                  onTap: () {
+                    nameFocusNode.unfocus();
+                    showPickerModal(
+                      context,
+                      items: _categoryListString,
+                      controller: categoryController,
+                      itemLabelBuilder: (String item) => item,
+                    );
+                  },
                 ),
                 CupertinoListTile(
                   title: PrefixInTextForm(text: 'Status'),
@@ -139,13 +149,15 @@ class AddItemScreen extends HookWidget {
                     placeholder: 'Sila pilih',
                   ),
                   trailing: CupertinoListTileChevron(),
-                  onTap:
-                      () => showPickerModal(
-                        context,
-                        items: _statusListString,
-                        controller: statusController,
-                        itemLabelBuilder: (String item) => item,
-                      ),
+                  onTap: () {
+                    nameFocusNode.unfocus();
+                    showPickerModal(
+                      context,
+                      items: _statusListString,
+                      controller: statusController,
+                      itemLabelBuilder: (String item) => item,
+                    );
+                  },
                 ),
               ],
             ),
@@ -160,6 +172,7 @@ class AddItemScreen extends HookWidget {
                   ),
                   trailing: CupertinoListTileChevron(),
                   onTap: () {
+                    nameFocusNode.unfocus();
                     if (purchaseDate.value == null) {
                       purchaseDate.value = DateTime.now();
                     }
@@ -180,10 +193,7 @@ class AddItemScreen extends HookWidget {
                   ),
                   trailing: CupertinoListTileChevron(),
                   onTap: () {
-                    if (expiryDate.value == null) {
-                      expiryDate.value = DateTime.now();
-                    }
-
+                    nameFocusNode.unfocus();
                     showPickerDate<DateTime>(
                       context,
                       date: expiryDate,
