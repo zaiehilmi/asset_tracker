@@ -1,13 +1,13 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class RecentlyAddedModel {
+  RecentlyAddedModel({
+    required this.id,
+    required this.itemName,
+    this.description,
+    this.addedAge,
+  });
 
-part 'recently_added_model.freezed.dart';
-
-@freezed
-abstract class RecentlyAddedModel with _$RecentlyAddedModel {
-  factory RecentlyAddedModel({
-    required String id,
-    required String itemName,
-    String? description,
-    String? addedAge,
-  }) = _RecentlyAddedModel;
+  String id;
+  String itemName;
+  String? description;
+  String? addedAge;
 }
