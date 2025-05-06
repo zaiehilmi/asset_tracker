@@ -1,14 +1,7 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:june/june.dart';
 
-part 'barcode_scanner_viewmodel.g.dart';
+final barcodeScannerVMState = June.getState(BarcodeScannerVM.new);
 
-@riverpod
-class BarcodeScannerViewmodel extends _$BarcodeScannerViewmodel {
-  @override
-  String build() {
-    return '';
-  }
-
-  String get barcode => state;
-  set barcode(String value) => state = value;
+class BarcodeScannerVM extends JuneState {
+  String? barcode;
 }

@@ -1,8 +1,9 @@
 import 'package:amicons/amicons.dart' show Amicons;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ui/features/dashboard/view_model/overview_viewmodel.dart'
-    show overviewStatisticsVMProvider;
+import 'package:june/june.dart';
+import 'package:ui/features/dashboard/view_model/overview_viewmodel.dart';
 import 'package:ui/features/dashboard/widgets/_overview_card.dart'
     show OverviewCard;
 import 'package:ui/theme/color.dart' show AppColors;
@@ -14,20 +15,29 @@ class AssembleOverviewCards extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vm = ref.watch(overviewStatisticsVMProvider);
+    // final vm = ref.watch(overviewStatisticsVMProvider);
+
+    useEffect(() {
+      overviewStatisticsVMState.fetchTotalItems();
+
+      return null;
+    }, []);
 
     final cards = [
-      OverviewCard(
-        icon: Amicons.vuesax_3d_square_fill,
-        title: 'Jumlah item',
-        titleColor: CupertinoColors.systemGrey5,
-        statNumberColor: CupertinoColors.systemGrey6,
-        statNumber:
-            vm.whenOrNull(data: (value) => value.totalItems.toString()) ?? '',
-        iconBackgroundColor: CupertinoColors.systemGrey5,
-        iconColor: context.primaryColor,
-        backgroundColor: context.primaryColor,
-        isLoading: vm.isLoading,
+      JuneBuilder(
+        OverviewStatisticsVM.new,
+        builder:
+            (vm) => OverviewCard(
+              icon: Amicons.vuesax_3d_square_fill,
+              title: 'Jumlah item',
+              titleColor: CupertinoColors.systemGrey5,
+              statNumberColor: CupertinoColors.systemGrey6,
+              statNumber: vm.totalItems.toString(),
+              iconBackgroundColor: CupertinoColors.systemGrey5,
+              iconColor: context.primaryColor,
+              backgroundColor: context.primaryColor,
+              isLoading: vm.totalItems == null,
+            ),
       ),
       OverviewCard(
         icon: Amicons.vuesax_clock_fill,
