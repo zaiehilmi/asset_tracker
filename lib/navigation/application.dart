@@ -2,6 +2,7 @@ import 'package:amicons/amicons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ui/features/dashboard/dashboard_screen.dart';
+import 'package:ui/features/scanner/barcode_scanner_screen.dart';
 import 'package:ui/features/search/main_search_screen.dart';
 
 const tabIconSize = 28.0;
@@ -14,24 +15,27 @@ final tabBarItems = [
     label: 'Ringkasan',
   ),
   const BottomNavigationBarItem(
-    icon: Icon(Amicons.vuesax_user, size: tabIconSize),
-    activeIcon: Icon(Amicons.vuesax_user_fill, size: tabIconSize),
-    label: 'Profil',
+    icon: Icon(Amicons.lucide_scan_barcode, size: tabIconSize),
+    activeIcon: Icon(Amicons.lucide_scan, size: tabIconSize),
+    label: 'Kamera',
   ),
   const BottomNavigationBarItem(
     icon: Icon(Amicons.iconly_search, size: tabIconSize),
     activeIcon: Icon(Amicons.iconly_search_fill, size: tabIconSize),
     label: 'Cari',
   ),
+  const BottomNavigationBarItem(
+    icon: Icon(Amicons.vuesax_star_1, size: tabIconSize),
+    activeIcon: Icon(Amicons.vuesax_star_fill, size: tabIconSize),
+    label: 'kegemaran',
+  ),
 ];
 
 final tabViews = <Widget>[
   DashboardScreen(),
-  const CupertinoPageScaffold(
-    navigationBar: CupertinoNavigationBar(middle: Text('Profil')),
-    child: Center(child: Text('Kandungan Profil')),
-  ),
+  BarcodeScannerScreen(),
   MainSearchScreen(),
+  BarcodeScannerScreen(),
 ];
 
 class Application extends HookWidget {
