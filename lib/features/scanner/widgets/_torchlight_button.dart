@@ -12,7 +12,7 @@ class TorchlightButton extends HookWidget {
   Widget build(BuildContext context) {
     final isTurnOn = useState(false);
 
-    final iconSize = 20.0;
+    const iconSize = 20.0;
 
     void handlePress() {
       onPressed?.call();
