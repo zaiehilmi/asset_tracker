@@ -6,6 +6,7 @@ import 'package:ui/features/dashboard/widgets/_actions_view.dart';
 import 'package:ui/features/dashboard/widgets/_assemble_overview_cards.dart';
 import 'package:ui/features/dashboard/widgets/_recently_added_view.dart';
 import 'package:ui/theme/guttters.dart';
+import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/widgets/sliver_nav_bar.dart';
 
 const _title = 'Ringkasan';
@@ -15,8 +16,7 @@ class DashboardScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bottomPadding =
-        MediaQuery.of(context).padding.bottom + kBottomNavigationBarHeight;
+    final bottomPadding = context.padding.bottom + kBottomNavigationBarHeight;
 
     return CupertinoPageScaffold(
       child: CustomScrollView(
