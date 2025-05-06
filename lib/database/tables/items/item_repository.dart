@@ -19,6 +19,8 @@ class ItemRepository implements Repository<Item> {
     }
   }
 
+  /// Mungkin akan jarang pakai sebab dia akan return nilai dari [columns] yang diinginkan sahaja.
+  /// Pada [columns], sila gunakan [ItemTable] untuk type-safe.
   @override
   Future<ListOfItems> readSpecificColumns(List<String> columns) async {
     try {
@@ -42,6 +44,10 @@ class ItemRepository implements Repository<Item> {
           ItemTable.category: null,
           ItemTable.addedDate: null,
           ItemTable.barcode: null,
+          ItemTable.parentItemId: null,
+          ItemTable.status: null,
+          ItemTable.urlLink: null,
+          ItemTable.lastUpdatedDate: null,
           // Override with actual values from the response
           ...json,
         };

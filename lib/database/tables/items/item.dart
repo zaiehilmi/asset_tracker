@@ -21,6 +21,7 @@ class ItemTable {
   static const parentItemId = 'parent_item_id';
   static const lastUpdatedDate = 'last_updated_date';
   static const status = 'status';
+  static const urlLink = 'url_link';
 }
 
 class Item {
@@ -39,6 +40,7 @@ class Item {
   final String? parentItemId;
   final DateTime? lastUpdatedDate;
   final Status? status;
+  final String? urlLink;
 
   Item({
     required this.id,
@@ -55,6 +57,7 @@ class Item {
     this.parentItemId,
     this.lastUpdatedDate,
     this.status,
+    this.urlLink,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) {
@@ -97,6 +100,7 @@ class Item {
           json[ItemTable.status] != null
               ? Status.fromPostgres(json[ItemTable.status] as String)
               : null,
+      urlLink: json[ItemTable.urlLink] as String?,
     );
   }
 }
@@ -117,6 +121,7 @@ extension ItemUtility on Item {
       ItemTable.parentItemId: parentItemId,
       ItemTable.lastUpdatedDate: DateTime.now().toIso8601String(),
       ItemTable.status: status?.toPostgres(),
+      ItemTable.urlLink: urlLink,
     };
 
     if (forInsert) {
@@ -147,6 +152,7 @@ extension ItemUtility on Item {
     String? parentItemId,
     DateTime? lastUpdatedDate,
     Status? status,
+    String? urlLink,
   }) {
     return Item(
       id: id ?? this.id,
@@ -163,6 +169,7 @@ extension ItemUtility on Item {
       parentItemId: parentItemId ?? this.parentItemId,
       lastUpdatedDate: lastUpdatedDate ?? this.lastUpdatedDate,
       status: status ?? this.status,
+      urlLink: urlLink ?? this.urlLink,
     );
   }
 }
