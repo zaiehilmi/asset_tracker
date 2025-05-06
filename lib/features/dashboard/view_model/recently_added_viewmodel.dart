@@ -5,7 +5,7 @@ import 'package:ui/features/dashboard/model/recently_added_model.dart'
 import 'package:ui/utils/june_mixin.dart' show JuneCustomMixin;
 import 'package:ui/utils/logger.dart';
 
-final recentlyAddedVMState = June.getState(RecentlyAddedVM.new);
+final recentlyAddedState = June.getState(RecentlyAddedVM.new);
 
 class RecentlyAddedVM extends JuneState with JuneCustomMixin {
   List<RecentlyAddedModel>? recentlyAddedItems;

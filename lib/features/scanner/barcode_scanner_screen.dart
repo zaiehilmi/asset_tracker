@@ -32,8 +32,8 @@ class BarcodeScannerScreen extends HookConsumerWidget {
       if (value == null || value.isEmpty) return;
 
       logger.i('Nilai kod bar dikesan: $value');
-      barcodeScannerVMState.barcode = value;
-      barcodeScannerVMState.setState();
+      barcodeScannerState.barcode = value;
+      barcodeScannerState.setState();
 
       if (directGoOnDetected) {
         // Navigator.pop(context);

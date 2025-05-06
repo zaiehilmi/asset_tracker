@@ -18,7 +18,7 @@ class AssembleOverviewCards extends HookConsumerWidget {
     // final vm = ref.watch(overviewStatisticsVMProvider);
 
     useEffect(() {
-      overviewStatisticsVMState.fetchTotalItems();
+      overviewStatisticsState.fetchTotalItems();
 
       return null;
     }, []);

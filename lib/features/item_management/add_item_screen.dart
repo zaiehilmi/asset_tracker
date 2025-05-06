@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ui/features/item_management/model/add_item_model.dart';
 
 import 'package:ui/features/item_management/view_model/add_item_viewmodel.dart';
 import 'package:ui/navigation/application.dart';
@@ -21,8 +22,6 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useState(GlobalKey<FormState>());
-    final viewModel = ref.watch(addItemViewModelProvider);
-    final viewModelNotifier = ref.read(addItemViewModelProvider.notifier);
 
     final namaController = useTextEditingController();
     final huraianController = useTextEditingController();
@@ -33,7 +32,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
     final tarikhPembelian = useState<DateTime?>(null);
     final tarikhLuput = useState<DateTime?>(null);
     final sumberController = useTextEditingController(
-      text: viewModel.senaraiSumber[0],
+      text: addItemState.senaraiSumber[0],
     );
 
     final nameFocusNode = useFocusNode(skipTraversal: true);
@@ -59,7 +58,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
 
       showPickerModal(
         context,
-        items: viewModel.senaraiSumber,
+        items: addItemState.senaraiSumber,
         controller: sumberController,
         itemLabelBuilder: (String item) => item,
       );
@@ -70,7 +69,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
 
       showPickerModal(
         context,
-        items: viewModel.senaraiKategori,
+        items: addItemState.senaraiKategori,
         controller: kategoriController,
         itemLabelBuilder: (String item) => item,
       );
@@ -81,7 +80,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
 
       showPickerModal(
         context,
-        items: viewModel.senaraiStatus,
+        items: addItemState.senaraiStatus,
         controller: statusController,
         itemLabelBuilder: (String item) => item,
       );
@@ -157,18 +156,30 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
 
     Future<void> onPressedSimpan() async {
       if (formKey.value.currentState?.validate() ?? false) {
-        viewModelNotifier
-          ..setNama(namaController.text)
-          ..setHuraian(huraianController.text)
-          ..setHarga(hargaController.text)
-          ..setPautan(pautanController.text)
-          ..setSumber(sumberController.text)
-          ..setKategori(kategoriController.text)
-          ..setStatus(statusController.text)
-          ..setTarikhPembelian(tarikhPembelian.value)
-          ..setTarikhLuput(tarikhLuput.value);
+        // viewModelNotifier
+        //   ..setNama(namaController.text)
+        //   ..setHuraian(huraianController.text)
+        //   ..setHarga(hargaController.text)
+        //   ..setPautan(pautanController.text)
+        //   ..setSumber(sumberController.text)
+        //   ..setKategori(kategoriController.text)
+        //   ..setStatus(statusController.text)
+        //   ..setTarikhPembelian(tarikhPembelian.value)
+        //   ..setTarikhLuput(tarikhLuput.value);
 
-        final isSuccess = await viewModelNotifier.onSubmit();
+        addItemState.model = AddItemModel(
+          nama: namaController.text,
+          huraian: huraianController.text,
+          harga: hargaController.text,
+          pautan: pautanController.text,
+          sumber: sumberController.text,
+          kategori: kategoriController.text,
+          status: statusController.text,
+          tarikhPembelian: tarikhPembelian.value,
+          tarikhLuput: tarikhLuput.value,
+        );
+
+        final isSuccess = await addItemState.onSubmit();
 
         if (context.mounted && isSuccess) {
           await showAlertDialog<void>(

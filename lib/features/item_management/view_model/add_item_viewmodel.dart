@@ -1,68 +1,56 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:june/june.dart';
 import 'package:ui/database/enums/enums.dart';
 import 'package:ui/database/exceptions/database_exception.dart';
 import 'package:ui/database/tables/items/item.dart';
 import 'package:ui/database/tables/items/item_repository.dart';
-import 'package:ui/features/item_management/state/add_item_state.dart'
-    show AddItemState;
+import 'package:ui/features/item_management/model/add_item_model.dart';
+import 'package:ui/utils/june_mixin.dart';
 import 'package:ui/utils/logger.dart';
 
-part 'add_item_viewmodel.g.dart';
+final addItemState = June.getState(AddItemVM.new);
 
-@riverpod
-class AddItemViewModel extends _$AddItemViewModel {
-  @override
-  AddItemState build() {
-    return AddItemState(
-      senaraiSumber: Source.values.map((value) => value.toDisplay()).toList(),
-      senaraiKategori:
-          Category.values.map((value) => value.toDisplay()).toList(),
-      senaraiStatus: Status.values.map((value) => value.toDisplay()).toList(),
-    );
-  }
+class AddItemVM extends JuneState with JuneCustomMixin {
+  AddItemModel? model;
 
-  void setNama(String value) => state = state.copyWith(nama: value);
-  void setHuraian(String value) => state = state.copyWith(huraian: value);
-  void setSumber(String value) => state = state.copyWith(sumber: value);
-  void setHarga(String value) => state = state.copyWith(harga: value);
-  void setPautan(String value) => state = state.copyWith(pautan: value);
-  void setKategori(String value) => state = state.copyWith(kategori: value);
-  void setStatus(String value) => state = state.copyWith(status: value);
-  void setTarikhPembelian(DateTime? value) =>
-      state = state.copyWith(tarikhPembelian: value);
-  void setTarikhLuput(DateTime? value) =>
-      state = state.copyWith(tarikhLuput: value);
+  final senaraiSumber =
+      Source.values.map((value) => value.toDisplay()).toList();
+  final senaraiKategori =
+      Category.values.map((value) => value.toDisplay()).toList();
+  final senaraiStatus =
+      Status.values.map((value) => value.toDisplay()).toList();
 
   Future<bool> onSubmit() async {
     final item = Item(
       id: '',
-      name: state.nama!,
-      notes: state.huraian,
+      name: model!.nama,
+      notes: model?.huraian,
       price:
-          (state.harga != null && state.harga!.isNotEmpty)
-              ? double.tryParse(state.harga!)
+          (model?.harga != null && model!.harga!.isNotEmpty)
+              ? double.tryParse(model!.harga!)
               : null,
-      urlLink: state.pautan,
-      source: state.sumber != null ? Source.fromDisplay(state.sumber!) : null,
+      urlLink: model?.pautan,
+      source: model?.sumber != null ? Source.fromDisplay(model!.sumber!) : null,
       category:
-          (state.kategori != null && state.kategori!.isNotEmpty)
-              ? Category.fromDisplay(state.kategori!)
+          (model?.kategori != null && model!.kategori!.isNotEmpty)
+              ? Category.fromDisplay(model!.kategori!)
               : null,
       status:
-          (state.status != null && state.status!.isNotEmpty)
-              ? Status.fromDisplay(state.status!)
+          (model?.status != null && model!.status!.isNotEmpty)
+              ? Status.fromDisplay(model!.status!)
               : null,
-      purchaseDate: state.tarikhPembelian,
-      expiryDate: state.tarikhLuput,
+      purchaseDate: model?.tarikhPembelian,
+      expiryDate: model?.tarikhLuput,
     );
 
     logger.i('Item: ${item.toJsonString()}');
 
     try {
       await ItemRepository().insert(item);
+      setLoadingEnd();
       return true;
     } on DatabaseException catch (e) {
       logger.e('AddItemViewModel Error: $e');
+      setLoadingEnd();
       return false;
     }
   }

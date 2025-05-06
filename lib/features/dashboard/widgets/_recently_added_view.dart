@@ -15,7 +15,7 @@ class RecentlyAddedView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
-      recentlyAddedVMState.fetchRecentlyAddedItems();
+      recentlyAddedState.fetchRecentlyAddedItems();
 
       return null;
     }, []);
