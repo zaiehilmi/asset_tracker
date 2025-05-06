@@ -43,13 +43,15 @@ class ActionsView extends HookConsumerWidget {
     return CupertinoFormSection.insetGrouped(
       backgroundColor: CupertinoColors.systemBackground,
       clipBehavior: Clip.hardEdge,
-      margin: EdgeInsets.symmetric(horizontal: Gutters.md),
+      margin: EdgeInsets.symmetric(
+        horizontal: Gutters.md,
+        vertical: Gutters.sm,
+      ),
       children: senaraiTindakan.map((item) => item).toList(),
     );
   }
 }
 
-// TODO: guna CupertinoPopupSurface untuk keluarkan aksi
 CupertinoListTile _buildTile(
   BuildContext context, {
   required String title,
