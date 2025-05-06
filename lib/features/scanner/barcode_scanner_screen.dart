@@ -51,7 +51,7 @@ class BarcodeScannerScreen extends HookConsumerWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.all(Gutters.md),
+              padding: const EdgeInsets.all(Gutters.lg),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
