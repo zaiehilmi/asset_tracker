@@ -7,6 +7,7 @@ final logger = Roggle(printer: _prettyPrinter);
 
 final _prettyPrinter = SinglePrettyPrinter(
   loggerName: '[UI]',
+  printLabels: false,
   printFunctionName: false,
   stackTracePrefix: '|',
   timeFormatter: (now) => DateFormat('HH:mm:ss').format(now),
