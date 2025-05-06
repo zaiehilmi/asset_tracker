@@ -19,21 +19,18 @@ class DashboardScreen extends HookConsumerWidget {
       child: CustomScrollView(
         slivers: [
           SliverNavBar(largeTitle: _title, middle: _title),
-          SliverFillRemaining(
-            child: Column(
-              spacing: Gutters.md,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Gutters.md),
-                  child: Divider(
-                    color: CupertinoColors.separator.withAlpha(30),
-                  ),
-                ),
-                AssembleOverviewCards(),
-                ActionsView(),
-                RecentlyAddedView(),
-              ],
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Gutters.md),
+              child: Divider(color: CupertinoColors.separator.withAlpha(30)),
             ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              AssembleOverviewCards(),
+              ActionsView(),
+              RecentlyAddedView(),
+            ]),
           ),
         ],
       ),
