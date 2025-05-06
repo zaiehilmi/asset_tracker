@@ -7,7 +7,6 @@ import 'package:ui/features/search/main_search_screen.dart';
 
 const tabIconSize = 28.0;
 
-// TODO(navigation): tambah favorite.
 final tabBarItems = [
   const BottomNavigationBarItem(
     icon: Icon(Amicons.vuesax_chart_square, size: tabIconSize),
@@ -44,7 +43,7 @@ class Application extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(items: tabBarItems),
+      tabBar: CupertinoTabBar(items: tabBarItems, height: 60),
       tabBuilder: (BuildContext context, int index) {
         return CupertinoTabView(builder: (context) => tabViews[index]);
       },
