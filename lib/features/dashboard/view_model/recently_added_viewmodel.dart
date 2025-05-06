@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ui/database/tables/tables.dart';
 import 'package:ui/features/dashboard/model/recently_added_model.dart'
     show RecentlyAddedModel;
-import 'package:ui/utils/talker.dart';
+import 'package:ui/utils/logger.dart';
 
 part 'recently_added_viewmodel.g.dart';
 
@@ -15,7 +15,7 @@ FutureOr<List<RecentlyAddedModel>> recentlyAddedVM(Ref ref) async {
     isAscending: false,
   );
 
-  talker.info('ada ${items.length} daripada 5 item terbaru ditambah');
+  logger.i('ada ${items.length} daripada 5 item terbaru ditambah');
 
   return items
       .map(

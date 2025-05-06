@@ -5,6 +5,7 @@ import 'package:ui/features/item_management/add_item_screen.dart';
 
 import 'package:ui/theme/guttters.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
+import 'package:ui/utils/logger.dart';
 import 'package:ui/widgets/prefix_in_row.dart';
 
 class ActionsView extends HookConsumerWidget {
@@ -28,7 +29,15 @@ class ActionsView extends HookConsumerWidget {
         subtitle: 'akan datang',
         icon: Amicons.iconly_camera,
         iconBackgroundColor: CupertinoColors.systemGreen,
-        onTap: () {},
+        onTap: () {
+          logger
+            ..d('debugg')
+            ..e('error')
+            ..w('warning')
+            ..i('info')
+            ..f('fatal')
+            ..t('trace');
+        },
       ),
       _buildTile(
         context,

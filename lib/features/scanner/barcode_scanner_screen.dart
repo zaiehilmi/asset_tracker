@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:ui/features/scanner/view_model/barcode_scanner_viewmodel.dart';
-import 'package:ui/utils/talker.dart';
+import 'package:ui/utils/logger.dart';
 
 class BarcodeScannerScreen extends HookConsumerWidget {
   const BarcodeScannerScreen({super.key});
@@ -25,7 +25,7 @@ class BarcodeScannerScreen extends HookConsumerWidget {
             final value = barcode.rawValue!;
             if (value.isEmpty) return;
 
-            talker.info('Barcode detected: $value');
+            logger.i('Barcode detected: $value');
             vmNotifier.barcode = value;
             // Navigator.pop(context);
           },

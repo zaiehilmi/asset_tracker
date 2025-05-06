@@ -5,7 +5,7 @@ import 'package:ui/database/tables/items/item.dart';
 import 'package:ui/database/tables/items/item_repository.dart';
 import 'package:ui/features/item_management/state/add_item_state.dart'
     show AddItemState;
-import 'package:ui/utils/talker.dart';
+import 'package:ui/utils/logger.dart';
 
 part 'add_item_viewmodel.g.dart';
 
@@ -56,13 +56,13 @@ class AddItemViewModel extends _$AddItemViewModel {
       expiryDate: state.tarikhLuput,
     );
 
-    talker.info('Item: ${item.toJsonString()}');
+    logger.i('Item: ${item.toJsonString()}');
 
     try {
       await ItemRepository().insert(item);
       return true;
     } on DatabaseException catch (e) {
-      talker.error('AddItemViewModel Error: $e');
+      logger.e('AddItemViewModel Error: $e');
       return false;
     }
   }

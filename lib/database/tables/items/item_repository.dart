@@ -2,7 +2,7 @@ import 'package:ui/database/database_client.dart' show supabaseClient;
 import 'package:ui/database/exceptions/database_exception.dart';
 import 'package:ui/database/tables/items/item.dart';
 import 'package:ui/database/tables/repository.dart' show Repository;
-import 'package:ui/utils/talker.dart';
+import 'package:ui/utils/logger.dart';
 
 typedef ListOfItems = List<Item>;
 
@@ -116,7 +116,7 @@ class ItemRepository implements Repository<Item> {
 
       return (await query).map(Item.fromJson).toList();
     } catch (e) {
-      talker.handle(e);
+      logger.e(e);
       throw DatabaseException('Gagal membaca dan sort: $e');
     }
   }
