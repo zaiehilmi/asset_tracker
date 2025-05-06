@@ -12,7 +12,7 @@ class TorchlightButton extends HookWidget {
   Widget build(BuildContext context) {
     final isTurnOn = useState(false);
 
-    final icon = Icon(CupertinoIcons.bolt, size: 20);
+    final iconSize = 20.0;
 
     void handlePress() {
       onPressed?.call();
@@ -24,7 +24,7 @@ class TorchlightButton extends HookWidget {
         padding: EdgeInsets.all(Gutters.md),
         borderRadius: BorderRadius.circular(AppBorder.full),
         onPressed: handlePress,
-        child: icon,
+        child: Icon(CupertinoIcons.bolt_fill, size: iconSize),
       );
     }
 
@@ -32,7 +32,7 @@ class TorchlightButton extends HookWidget {
       padding: EdgeInsets.all(Gutters.md),
       borderRadius: BorderRadius.circular(AppBorder.full),
       onPressed: handlePress,
-      child: icon,
+      child: Icon(CupertinoIcons.bolt, size: iconSize),
     );
   }
 }
