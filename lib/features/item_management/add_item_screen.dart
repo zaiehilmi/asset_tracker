@@ -301,6 +301,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
                 ),
               ],
             ),
+
             CupertinoFormSection.insetGrouped(
               children: [
                 CupertinoListTile(
