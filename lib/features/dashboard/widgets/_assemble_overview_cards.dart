@@ -1,7 +1,6 @@
 import 'package:amicons/amicons.dart' show Amicons;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:june/june.dart';
 import 'package:ui/features/dashboard/view_model/overview_viewmodel.dart';
 import 'package:ui/features/dashboard/widgets/_overview_card.dart'
@@ -10,13 +9,11 @@ import 'package:ui/theme/color.dart' show AppColors;
 import 'package:ui/theme/guttters.dart' show Gutters;
 import 'package:ui/utils/extension/buildcontext.dart';
 
-class AssembleOverviewCards extends HookConsumerWidget {
+class AssembleOverviewCards extends HookWidget {
   const AssembleOverviewCards({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // final vm = ref.watch(overviewStatisticsVMProvider);
-
+  Widget build(BuildContext context) {
     useEffect(() {
       overviewStatisticsState.fetchTotalItems();
 

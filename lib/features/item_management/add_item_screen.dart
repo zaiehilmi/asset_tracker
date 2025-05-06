@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ui/features/item_management/model/add_item_model.dart';
 
 import 'package:ui/features/item_management/view_model/add_item_viewmodel.dart';
@@ -16,11 +15,11 @@ import 'package:ui/utils/helper/show_picker_modal.dart' show showPickerModal;
 import 'package:ui/widgets/fullscreen_dialog_scaffold.dart';
 import 'package:ui/widgets/prefix_in_text_form.dart';
 
-class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
+class AddItemScreen extends HookWidget with WidgetsBindingObserver {
   const AddItemScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final formKey = useState(GlobalKey<FormState>());
 
     final namaController = useTextEditingController();

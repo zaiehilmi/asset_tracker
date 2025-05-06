@@ -1,18 +1,18 @@
 import 'package:amicons/amicons.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ui/features/item_management/add_item_screen.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'package:ui/features/item_management/add_item_screen.dart';
 import 'package:ui/theme/guttters.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/utils/logger.dart';
 import 'package:ui/widgets/prefix_in_row.dart';
 
-class ActionsView extends HookConsumerWidget {
+class ActionsView extends HookWidget {
   const ActionsView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final senaraiTindakan = [
       _buildTile(
         context,

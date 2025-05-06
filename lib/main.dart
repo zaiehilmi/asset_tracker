@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ui/config.dart';
 import 'package:ui/localization/cupertino_localization_ms.dart'
@@ -23,7 +22,7 @@ Future<void> main() async {
     anonKey: Config.supabaseKey,
   );
 
-  runApp(const ProviderScope(child: MainApp()));
+  runApp(const MainApp());
 }
 
 class MainApp extends HookWidget {

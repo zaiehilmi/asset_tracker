@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:june/state_manager.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:ui/features/scanner/view_model/barcode_scanner_viewmodel.dart';
@@ -10,7 +9,7 @@ import 'package:ui/theme/guttters.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/utils/logger.dart';
 
-class BarcodeScannerScreen extends HookConsumerWidget {
+class BarcodeScannerScreen extends HookWidget {
   const BarcodeScannerScreen({
     super.key,
     this.directGoOnDetected = false,
@@ -23,7 +22,7 @@ class BarcodeScannerScreen extends HookConsumerWidget {
   final String buttonTitle;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final scannerController = useMemoized(MobileScannerController.new);
 
     void onDetectBarcode(BarcodeCapture capture) {
