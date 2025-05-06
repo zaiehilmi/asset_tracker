@@ -15,6 +15,9 @@ class DashboardScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bottomPadding =
+        MediaQuery.of(context).padding.bottom + kBottomNavigationBarHeight;
+
     return CupertinoPageScaffold(
       child: CustomScrollView(
         slivers: [
@@ -25,12 +28,15 @@ class DashboardScreen extends HookConsumerWidget {
               child: Divider(color: CupertinoColors.separator.withAlpha(30)),
             ),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              AssembleOverviewCards(),
-              ActionsView(),
-              RecentlyAddedView(),
-            ]),
+          SliverPadding(
+            padding: EdgeInsets.only(bottom: bottomPadding),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                AssembleOverviewCards(),
+                ActionsView(),
+                RecentlyAddedView(),
+              ]),
+            ),
           ),
         ],
       ),
