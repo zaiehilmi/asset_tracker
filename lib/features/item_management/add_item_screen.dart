@@ -9,6 +9,7 @@ import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/utils/extension/datetime.dart';
 import 'package:ui/utils/format_harga.dart';
 import 'package:ui/utils/helper/placeholder_for_picker.dart';
+import 'package:ui/utils/helper/show_alert_dialog.dart';
 import 'package:ui/utils/helper/show_picker_date.dart';
 import 'package:ui/utils/helper/show_picker_modal.dart' show showPickerModal;
 import 'package:ui/widgets/fullscreen_dialog_scaffold.dart';
@@ -124,7 +125,21 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
         final isSuccess = await viewModelNotifier.onSubmit();
 
         if (context.mounted && isSuccess) {
-          context.navigateByPushAndRemoveUntil(builder: (_) => Application());
+          await showAlertDialog<void>(
+            context,
+            title: 'Berjaya',
+            content: 'Item telah ditambah',
+            actions: [
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  context.navigateByPushAndRemoveUntil(
+                    builder: (_) => Application(),
+                  );
+                },
+              ),
+            ],
+          );
         }
       }
     }
