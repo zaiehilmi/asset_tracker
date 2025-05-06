@@ -25,6 +25,7 @@ class AddItemViewModel extends _$AddItemViewModel {
   void setHuraian(String value) => state = state.copyWith(huraian: value);
   void setSumber(String value) => state = state.copyWith(sumber: value);
   void setHarga(String value) => state = state.copyWith(harga: value);
+  void setPautan(String value) => state = state.copyWith(pautan: value);
   void setKategori(String value) => state = state.copyWith(kategori: value);
   void setStatus(String value) => state = state.copyWith(status: value);
   void setTarikhPembelian(DateTime? value) =>
@@ -41,6 +42,7 @@ class AddItemViewModel extends _$AddItemViewModel {
           (state.harga != null && state.harga!.isNotEmpty)
               ? double.tryParse(state.harga!)
               : null,
+      urlLink: state.pautan,
       source: state.sumber != null ? Source.fromDisplay(state.sumber!) : null,
       category:
           (state.kategori != null && state.kategori!.isNotEmpty)
@@ -57,7 +59,7 @@ class AddItemViewModel extends _$AddItemViewModel {
     talker.info('Item: ${item.toJsonString()}');
 
     try {
-      // await ItemRepository().insert(item);
+      await ItemRepository().insert(item);
       return true;
     } on DatabaseException catch (e) {
       talker.error('AddItemViewModel Error: $e');

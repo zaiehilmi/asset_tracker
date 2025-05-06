@@ -9,6 +9,7 @@ class FullScreenDialogScaffold extends HookWidget {
     this.previousPageTitle,
     this.trailing,
     this.backgroundColor,
+    this.onTap,
   });
 
   final Widget? child;
@@ -16,31 +17,35 @@ class FullScreenDialogScaffold extends HookWidget {
   final String? previousPageTitle;
   final Widget? trailing;
   final Color? backgroundColor;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     final scrollController = useScrollController();
 
-    return CupertinoPageScaffold(
-      backgroundColor: backgroundColor,
-      navigationBar: CupertinoNavigationBar(
-        previousPageTitle: previousPageTitle,
-        leading: CupertinoButton(
-          padding: EdgeInsets.zero,
-          child: const Text('Tutup'),
-          onPressed: () => Navigator.of(context).pop(),
+    return GestureDetector(
+      onTap: onTap,
+      child: CupertinoPageScaffold(
+        backgroundColor: backgroundColor,
+        navigationBar: CupertinoNavigationBar(
+          previousPageTitle: previousPageTitle,
+          leading: CupertinoButton(
+            padding: EdgeInsets.zero,
+            child: const Text('Tutup'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          middle: title,
+          trailing: trailing,
         ),
-        middle: title,
-        trailing: trailing,
-      ),
 
-      child: SafeArea(
-        bottom: false,
-        child: CupertinoScrollbar(
-          controller: scrollController,
-          child: SingleChildScrollView(
+        child: SafeArea(
+          bottom: false,
+          child: CupertinoScrollbar(
             controller: scrollController,
-            child: child,
+            child: SingleChildScrollView(
+              controller: scrollController,
+              child: child,
+            ),
           ),
         ),
       ),

@@ -12,6 +12,7 @@ sealed class AddItemState with _$AddItemState {
     @Default(null) String? harga,
     @Default(null) String? kategori,
     @Default(null) String? status,
+    @Default(null) String? pautan,
     DateTime? tarikhPembelian,
     DateTime? tarikhLuput,
 

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ui/features/dashboard/dashboard_screen.dart';
 
 import 'package:ui/features/item_management/view_model/add_item_viewmodel.dart';
 import 'package:ui/navigation/application.dart';
@@ -27,6 +27,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
     final namaController = useTextEditingController();
     final huraianController = useTextEditingController();
     final hargaController = useTextEditingController();
+    final pautanController = useTextEditingController();
     final kategoriController = useTextEditingController();
     final statusController = useTextEditingController();
     final tarikhPembelian = useState<DateTime?>(null);
@@ -36,6 +37,16 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
     );
 
     final nameFocusNode = useFocusNode(skipTraversal: true);
+    final huraianFocusNode = useFocusNode();
+    final hargaFocusNode = useFocusNode();
+    final pautanFocusNode = useFocusNode();
+
+    void unfocusAllFields() {
+      nameFocusNode.unfocus();
+      huraianFocusNode.unfocus();
+      hargaFocusNode.unfocus();
+      pautanFocusNode.unfocus();
+    }
 
     final $textStyle = context.textTheme.textStyle.copyWith(fontSize: 14);
 
@@ -44,7 +55,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
     useListenable(statusController);
 
     void onTapSumberField() {
-      nameFocusNode.unfocus();
+      unfocusAllFields();
 
       showPickerModal(
         context,
@@ -55,7 +66,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
     }
 
     void onTapKategoriField() {
-      nameFocusNode.unfocus();
+      unfocusAllFields();
 
       showPickerModal(
         context,
@@ -66,7 +77,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
     }
 
     void onTapStatusField() {
-      nameFocusNode.unfocus();
+      unfocusAllFields();
 
       showPickerModal(
         context,
@@ -77,7 +88,8 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
     }
 
     void onTapTarikhPembelian() {
-      nameFocusNode.unfocus();
+      unfocusAllFields();
+
       if (tarikhPembelian.value == null) {
         tarikhPembelian.value = DateTime.now();
       }
@@ -90,7 +102,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
     }
 
     void onTapTarikhLuput() {
-      nameFocusNode.unfocus();
+      unfocusAllFields();
 
       showPickerDate<DateTime>(
         context,
@@ -110,12 +122,46 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
       }
     }
 
+    Future<void> onTapPautanField() async {
+      nameFocusNode.unfocus();
+
+      final clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
+      final clipboardText = clipboardData?.text;
+
+      if (clipboardText != null &&
+          (clipboardText.startsWith('http://') ||
+              clipboardText.startsWith('https://'))) {
+        if (!context.mounted) return;
+
+        await showAlertDialog<void>(
+          context,
+          title: 'Guna pautan dari clipboard?',
+          content: clipboardText,
+          actions: [
+            CupertinoDialogAction(
+              isDestructiveAction: true,
+              child: Text('Batal'),
+              onPressed: () => Navigator.pop(context),
+            ),
+            CupertinoDialogAction(
+              child: Text('Guna'),
+              onPressed: () {
+                pautanController.text = clipboardText;
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      }
+    }
+
     Future<void> onPressedSimpan() async {
       if (formKey.value.currentState?.validate() ?? false) {
         viewModelNotifier
           ..setNama(namaController.text)
           ..setHuraian(huraianController.text)
           ..setHarga(hargaController.text)
+          ..setPautan(pautanController.text)
           ..setSumber(sumberController.text)
           ..setKategori(kategoriController.text)
           ..setStatus(statusController.text)
@@ -150,6 +196,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
     }, const []);
 
     return FullScreenDialogScaffold(
+      onTap: unfocusAllFields,
       backgroundColor: CupertinoColors.systemGroupedBackground,
       title: const Text('Tambah Item Baharu'),
       trailing: CupertinoButton(
@@ -184,6 +231,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
                 ),
                 CupertinoTextFormFieldRow(
                   controller: huraianController,
+                  focusNode: huraianFocusNode,
                   prefix: PrefixInTextForm(text: 'Huraian'),
                   placeholder: 'Huraian',
                   style: $textStyle,
@@ -214,11 +262,22 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
               children: [
                 CupertinoTextFormFieldRow(
                   controller: hargaController,
+                  focusNode: hargaFocusNode,
                   prefix: PrefixInTextForm(text: 'RM'),
                   placeholder: '0.00',
                   style: $textStyle,
                   keyboardType: TextInputType.number,
                   onChanged: onChangedInputHarga,
+                ),
+                CupertinoTextFormFieldRow(
+                  controller: pautanController,
+                  focusNode: pautanFocusNode,
+                  prefix: PrefixInTextForm(text: 'Pautan'),
+                  placeholder: 'https://shopee.my',
+                  style: $textStyle.copyWith(color: CupertinoColors.systemBlue),
+                  keyboardType: TextInputType.url,
+                  autocorrect: false,
+                  onTap: onTapPautanField,
                 ),
                 CupertinoListTile(
                   title: PrefixInTextForm(text: 'Kategori'),
