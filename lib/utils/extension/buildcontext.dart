@@ -11,5 +11,11 @@ extension BuildContextExtension on BuildContext {
     ).push(CupertinoPageRoute<void>(fullscreenDialog: true, builder: builder));
   }
 
+  void navigateTo({required Widget Function(BuildContext) builder}) {
+    Navigator.of(
+      this,
+    ).push(CupertinoPageRoute<void>(maintainState: false, builder: builder));
+  }
+
   Size get sizeOf => MediaQuery.sizeOf(this);
 }

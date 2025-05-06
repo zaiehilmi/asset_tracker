@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ui/database/enums/enums.dart';
+import 'package:ui/database/exceptions/database_exception.dart';
 import 'package:ui/database/tables/items/item.dart';
 import 'package:ui/database/tables/items/item_repository.dart';
 import 'package:ui/features/item_management/state/add_item_state.dart'
@@ -31,22 +32,36 @@ class AddItemViewModel extends _$AddItemViewModel {
   void setTarikhLuput(DateTime? value) =>
       state = state.copyWith(tarikhLuput: value);
 
-  Future<void> onSubmit() async {
+  Future<bool> onSubmit() async {
     final item = Item(
       id: '',
       name: state.nama!,
       notes: state.huraian,
-      price: state.harga != null ? double.parse(state.harga.toString()) : null,
+      price:
+          (state.harga != null && state.harga!.isNotEmpty)
+              ? double.tryParse(state.harga!)
+              : null,
       source: state.sumber != null ? Source.fromDisplay(state.sumber!) : null,
       category:
-          state.kategori != null ? Category.fromDisplay(state.kategori!) : null,
-      status: state.status != null ? Status.fromDisplay(state.status!) : null,
+          (state.kategori != null && state.kategori!.isNotEmpty)
+              ? Category.fromDisplay(state.kategori!)
+              : null,
+      status:
+          (state.status != null && state.status!.isNotEmpty)
+              ? Status.fromDisplay(state.status!)
+              : null,
       purchaseDate: state.tarikhPembelian,
       expiryDate: state.tarikhLuput,
     );
 
     talker.info('Item: ${item.toJsonString()}');
 
-    // await ItemRepository().insert(item);
+    try {
+      // await ItemRepository().insert(item);
+      return true;
+    } on DatabaseException catch (e) {
+      talker.error('AddItemViewModel Error: $e');
+      return false;
+    }
   }
 }

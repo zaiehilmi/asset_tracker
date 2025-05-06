@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ui/features/dashboard/dashboard_screen.dart';
 
 import 'package:ui/features/item_management/view_model/add_item_viewmodel.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
@@ -12,7 +13,7 @@ import 'package:ui/utils/helper/show_picker_modal.dart' show showPickerModal;
 import 'package:ui/widgets/fullscreen_dialog_scaffold.dart';
 import 'package:ui/widgets/prefix_in_text_form.dart';
 
-class AddItemScreen extends HookConsumerWidget {
+class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
   const AddItemScreen({super.key});
 
   @override
@@ -107,7 +108,7 @@ class AddItemScreen extends HookConsumerWidget {
       }
     }
 
-    void onPressedSimpan() {
+    Future<void> onPressedSimpan() async {
       if (formKey.value.currentState?.validate() ?? false) {
         viewModelNotifier
           ..setNama(namaController.text)
@@ -117,8 +118,13 @@ class AddItemScreen extends HookConsumerWidget {
           ..setKategori(kategoriController.text)
           ..setStatus(statusController.text)
           ..setTarikhPembelian(tarikhPembelian.value)
-          ..setTarikhLuput(tarikhLuput.value)
-          ..onSubmit();
+          ..setTarikhLuput(tarikhLuput.value);
+
+        final isSuccess = await viewModelNotifier.onSubmit();
+
+        if (context.mounted && isSuccess) {
+          context.navigateTo(builder: (_) => DashboardScreen());
+        }
       }
     }
 
