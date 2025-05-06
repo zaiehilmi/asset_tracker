@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ui/features/dashboard/dashboard_screen.dart';
 
 import 'package:ui/features/item_management/view_model/add_item_viewmodel.dart';
+import 'package:ui/navigation/application.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/utils/extension/datetime.dart';
 import 'package:ui/utils/format_harga.dart';
@@ -123,7 +124,7 @@ class AddItemScreen extends HookConsumerWidget with WidgetsBindingObserver {
         final isSuccess = await viewModelNotifier.onSubmit();
 
         if (context.mounted && isSuccess) {
-          context.navigateTo(builder: (_) => DashboardScreen());
+          context.navigateByPushAndRemoveUntil(builder: (_) => Application());
         }
       }
     }
