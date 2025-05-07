@@ -16,7 +16,7 @@ class SliverNavBar extends HookWidget {
       alwaysShowMiddle: false,
       largeTitle: GradientAnimationText(
         text: Text(middle ?? largeTitle),
-        colors: const [CupertinoColors.black, Color(0xff141e30)],
+        colors: [CupertinoColors.black, CupertinoColors.black.withAlpha(200)],
         duration: const Duration(seconds: 5),
         reverse: true,
         transform: const GradientRotation(24),
