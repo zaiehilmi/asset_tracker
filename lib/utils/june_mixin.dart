@@ -4,8 +4,14 @@ mixin JuneCustomMixin on JuneState {
   bool isLoading = true;
 
   /// guna bila ada promises
-  void setLoadingEnd() {
+  void setStateAsync() {
     isLoading = false;
+    setState();
+  }
+
+  /// guna bila ada promises. Letak di permulaan function
+  void resetLoading() {
+    isLoading = true;
     setState();
   }
 }

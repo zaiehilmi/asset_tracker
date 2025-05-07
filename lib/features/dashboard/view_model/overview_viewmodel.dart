@@ -12,24 +12,28 @@ class OverviewStatisticsVM extends JuneState with JuneCustomMixin {
   int? totalNeedServiceItems;
 
   Future<void> fetchTotalItems() async {
+    resetLoading();
+
     final items = await ItemRepository().readAll();
     logger.log(Level.info, 'saiz item ${items.length}');
 
     totalItems = items.length;
-    setLoadingEnd();
+    setStateAsync();
   }
 
   Future<void> fetchTotalNearExpiryItems() async {
+    resetLoading();
     // final items = await ItemRepository().readAll();
     // logger.log(Level.info,'saiz item ${items.length}');
     // totalNearExpiryItems = items.length;
-    setLoadingEnd();
+    setStateAsync();
   }
 
   Future<void> fetchTotalNeedServiceItems() async {
+    resetLoading();
     // final items = await ItemRepository().readAll();
     // logger.log(Level.info,'saiz item ${items.length}');
     // totalNeedServiceItems = items.length;
-    setLoadingEnd();
+    setStateAsync();
   }
 }

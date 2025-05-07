@@ -11,6 +11,8 @@ class RecentlyAddedVM extends JuneState with JuneCustomMixin {
   List<RecentlyAddedModel>? recentlyAddedItems;
 
   Future<void> fetchRecentlyAddedItems() async {
+    resetLoading();
+
     final items = await ItemRepository().readAndSort(
       column: ItemTable.addedDate,
       limit: 5,
@@ -30,6 +32,6 @@ class RecentlyAddedVM extends JuneState with JuneCustomMixin {
             )
             .toList();
 
-    setLoadingEnd();
+    setStateAsync();
   }
 }

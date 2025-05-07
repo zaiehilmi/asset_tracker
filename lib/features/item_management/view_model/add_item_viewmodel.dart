@@ -20,6 +20,8 @@ class AddItemVM extends JuneState with JuneCustomMixin {
       Status.values.map((value) => value.toDisplay()).toList();
 
   Future<bool> onSubmit() async {
+    resetLoading();
+
     final item = Item(
       id: '',
       name: model!.nama,
@@ -46,11 +48,11 @@ class AddItemVM extends JuneState with JuneCustomMixin {
 
     try {
       await ItemRepository().insert(item);
-      setLoadingEnd();
+      setStateAsync();
       return true;
     } on DatabaseException catch (e) {
       logger.e('AddItemViewModel Error: $e');
-      setLoadingEnd();
+      setStateAsync();
       return false;
     }
   }
