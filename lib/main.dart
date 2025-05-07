@@ -34,7 +34,6 @@ class MainApp extends HookWidget {
   Widget build(BuildContext context) {
     return JuneBuilder(
       ApplicationVM.new,
-
       builder:
           (vm) => CupertinoApp(
             theme: temaAplikasi.copyWith(brightness: vm.brightness),
