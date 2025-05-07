@@ -42,12 +42,13 @@ class AddItemVM extends JuneState with JuneCustomMixin {
               : null,
       purchaseDate: model?.tarikhPembelian,
       expiryDate: model?.tarikhLuput,
+      barcode: model?.kodbar,
     );
 
     logger.i('Item: ${item.toJsonString()}');
 
     try {
-      await ItemRepository().insert(item);
+      // await ItemRepository().insert(item);
       setStateAsync();
       return true;
     } on DatabaseException catch (e) {

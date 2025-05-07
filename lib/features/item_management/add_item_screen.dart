@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:june/state_manager/state_manager.dart';
 import 'package:ui/features/item_management/model/add_item_model.dart';
-
 import 'package:ui/features/item_management/view_model/add_item_viewmodel.dart';
+import 'package:ui/features/scanner/barcode_scanner_screen.dart'
+    show BarcodeScannerScreen;
+import 'package:ui/features/scanner/view_model/barcode_scanner_viewmodel.dart';
 import 'package:ui/navigation/application.dart';
+import 'package:ui/navigation/application_viewmodel.dart' show applicationState;
 import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/utils/extension/datetime.dart';
 import 'package:ui/utils/format_harga.dart';
@@ -30,6 +34,7 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
     final statusController = useTextEditingController();
     final tarikhPembelian = useState<DateTime?>(null);
     final tarikhLuput = useState<DateTime?>(null);
+    final kodbarController = useState<String?>(null);
     final sumberController = useTextEditingController(
       text: addItemState.senaraiSumber[0],
     );
@@ -153,19 +158,21 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
       }
     }
 
+    void onTapKodBar() {
+      nameFocusNode.unfocus();
+
+      context.fullScreenDialogRoute(
+        builder: (_) => const BarcodeScannerScreen(buttonTitle: 'Teruskan'),
+        onComplete: () {
+          applicationState.brightness = Brightness.light;
+
+          kodbarController.value = barcodeScannerState.barcode;
+        },
+      );
+    }
+
     Future<void> onPressedSimpan() async {
       if (formKey.value.currentState?.validate() ?? false) {
-        // viewModelNotifier
-        //   ..setNama(namaController.text)
-        //   ..setHuraian(huraianController.text)
-        //   ..setHarga(hargaController.text)
-        //   ..setPautan(pautanController.text)
-        //   ..setSumber(sumberController.text)
-        //   ..setKategori(kategoriController.text)
-        //   ..setStatus(statusController.text)
-        //   ..setTarikhPembelian(tarikhPembelian.value)
-        //   ..setTarikhLuput(tarikhLuput.value);
-
         addItemState.model = AddItemModel(
           nama: namaController.text,
           huraian: huraianController.text,
@@ -176,6 +183,7 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
           status: statusController.text,
           tarikhPembelian: tarikhPembelian.value,
           tarikhLuput: tarikhLuput.value,
+          kodbar: kodbarController.value,
         );
 
         final isSuccess = await addItemState.onSubmit();
@@ -202,7 +210,8 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
 
     useEffect(() {
       nameFocusNode.requestFocus();
-      return null;
+
+      return barcodeScannerState.resetBarcode;
     }, const []);
 
     return FullScreenDialogScaffold(
@@ -217,7 +226,9 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
       child: Form(
         key: formKey.value,
 
-        child: Column(
+        child: ListView(
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
           children: [
             CupertinoFormSection.insetGrouped(
               clipBehavior: Clip.hardEdge,
@@ -335,6 +346,37 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
                   onTap: onTapTarikhLuput,
                 ),
               ],
+            ),
+
+            GestureDetector(
+              onTap: onTapKodBar,
+              child: JuneBuilder(
+                BarcodeScannerVM.new,
+                builder:
+                    (vm) => Column(
+                      children: [
+                        Icon(
+                          CupertinoIcons.barcode,
+                          size: 80,
+                          color:
+                              (vm.barcode == null)
+                                  ? CupertinoColors.inactiveGray
+                                  : context.primaryColor,
+                        ),
+
+                        Text(
+                          (vm.barcode == null)
+                              ? 'Imbas kod bar untuk memudahkan pencarian'
+                              : 'Kod bar telah didaftarkan',
+                          style: context.textTheme.actionSmallTextStyle
+                              .copyWith(
+                                fontSize: 10,
+                                color: CupertinoColors.systemGrey,
+                              ),
+                        ),
+                      ],
+                    ),
+              ),
             ),
           ],
         ),

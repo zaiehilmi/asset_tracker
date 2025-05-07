@@ -9,11 +9,18 @@ extension BuildContextExtension on BuildContext {
 }
 
 extension Navigation on BuildContext {
-  void fullScreenDialogRoute({required Widget Function(BuildContext) builder}) {
-    Navigator.of(
-      this,
-      rootNavigator: true,
-    ).push(CupertinoPageRoute<void>(fullscreenDialog: true, builder: builder));
+  void fullScreenDialogRoute({
+    required Widget Function(BuildContext) builder,
+    void Function()? onComplete,
+    bool rootNavigator = false,
+  }) {
+    Navigator.of(this, rootNavigator: rootNavigator)
+        .push(
+          CupertinoPageRoute<void>(fullscreenDialog: true, builder: builder),
+        )
+        .then((_) {
+          onComplete?.call();
+        });
   }
 
   void navigateByPushTo({required Widget Function(BuildContext) builder}) {

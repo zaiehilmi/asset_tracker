@@ -17,6 +17,7 @@ class BarcodeScannerScreen extends HookWidget {
     this.buttonTitle = 'Cari Sekarang',
   });
 
+  /// jangan guna buat masa ni. rosak.
   final bool directGoOnDetected;
 
   /// hanya akan muncul jika [directGoOnDetected] adalah false
@@ -35,12 +36,13 @@ class BarcodeScannerScreen extends HookWidget {
       barcodeScannerState.setBarcode = value;
 
       if (directGoOnDetected) {
-        // Navigator.pop(context);
+        Navigator.of(context).pop();
       }
     }
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        barcodeScannerState.resetBarcode();
         applicationState.brightness = Brightness.dark;
       });
 
@@ -48,12 +50,14 @@ class BarcodeScannerScreen extends HookWidget {
         if (context.mounted) {
           applicationState.brightness = Brightness.light;
         }
-
-        scannerController.dispose();
+        scannerController
+          ..stop()
+          ..dispose();
       };
     }, []);
 
     return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(automaticallyImplyMiddle: false),
       child: SafeArea(
         child: JuneBuilder(
           BarcodeScannerVM.new,
@@ -79,7 +83,7 @@ class BarcodeScannerScreen extends HookWidget {
                         if (vm.barcode != null && !directGoOnDetected)
                           CupertinoButton.tinted(
                             child: Text(buttonTitle),
-                            onPressed: () {},
+                            onPressed: () => Navigator.of(context).pop(),
                           ),
                       ],
                     ),

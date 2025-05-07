@@ -9,6 +9,7 @@ class AddItemModel {
     this.pautan,
     this.tarikhPembelian,
     this.tarikhLuput,
+    this.kodbar,
   });
 
   final String nama;
@@ -20,4 +21,5 @@ class AddItemModel {
   final String? pautan;
   final DateTime? tarikhPembelian;
   final DateTime? tarikhLuput;
+  final String? kodbar;
 }

@@ -35,16 +35,6 @@ class MainSearchScreen extends HookWidget {
                   }).toList(),
             ),
           ),
-          // SliverFillRemaining(
-          //   child: Column(
-          //     spacing: Gutters.md,
-          //     children: [
-          //       ...senaraiKategori.map((kategori) {
-          //         return Text(kategori);
-          //       }),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );

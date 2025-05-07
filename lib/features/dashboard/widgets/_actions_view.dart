@@ -20,8 +20,10 @@ class ActionsView extends HookWidget {
         icon: Amicons.lucide_plus,
         iconBackgroundColor: CupertinoColors.activeBlue,
         onTap:
-            () =>
-                context.fullScreenDialogRoute(builder: (_) => AddItemScreen()),
+            () => context.fullScreenDialogRoute(
+              rootNavigator: true,
+              builder: (_) => AddItemScreen(),
+            ),
       ),
       _buildTile(
         context,

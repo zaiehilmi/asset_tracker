@@ -10,4 +10,9 @@ class BarcodeScannerVM extends JuneState {
     barcode = value;
     setState();
   }
+
+  void resetBarcode() {
+    barcode = null;
+    setState();
+  }
 }
