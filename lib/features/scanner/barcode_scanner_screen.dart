@@ -45,9 +45,9 @@ class BarcodeScannerScreen extends HookWidget {
       });
 
       return () {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) {
           applicationState.brightness = Brightness.light;
-        });
+        }
 
         scannerController.dispose();
       };
