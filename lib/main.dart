@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:june/state_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ui/config.dart';
 import 'package:ui/localization/cupertino_localization_ms.dart'
     show CupertinoLocalizationsMsDelegate;
 import 'package:ui/navigation/application.dart';
+import 'package:ui/navigation/application_viewmodel.dart' show ApplicationVM;
 import 'package:ui/theme/theme_data.dart';
 
 Future<void> main() async {
@@ -30,16 +32,21 @@ class MainApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      theme: temaAplikasi,
-      localizationsDelegates: [
-        DefaultWidgetsLocalizations.delegate,
-        DefaultCupertinoLocalizations.delegate,
-        CupertinoLocalizationsMsDelegate(),
-      ],
-      supportedLocales: const [Locale('ms')],
-      locale: const Locale('ms'),
-      home: const Application(),
+    return JuneBuilder(
+      ApplicationVM.new,
+
+      builder:
+          (vm) => CupertinoApp(
+            theme: temaAplikasi.copyWith(brightness: vm.brightness),
+            localizationsDelegates: [
+              DefaultWidgetsLocalizations.delegate,
+              DefaultCupertinoLocalizations.delegate,
+              CupertinoLocalizationsMsDelegate(),
+            ],
+            supportedLocales: const [Locale('ms')],
+            locale: const Locale('ms'),
+            home: const Application(),
+          ),
     );
   }
 }

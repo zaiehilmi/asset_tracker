@@ -5,6 +5,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:ui/features/scanner/view_model/barcode_scanner_viewmodel.dart';
 import 'package:ui/features/scanner/widgets/_torchlight_button.dart'
     show TorchlightButton;
+import 'package:ui/navigation/application_viewmodel.dart';
 import 'package:ui/theme/guttters.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/utils/logger.dart';
@@ -39,7 +40,17 @@ class BarcodeScannerScreen extends HookWidget {
     }
 
     useEffect(() {
-      return scannerController.dispose;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        applicationState.brightness = Brightness.dark;
+      });
+
+      return () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          applicationState.brightness = Brightness.light;
+        });
+
+        scannerController.dispose();
+      };
     }, []);
 
     return CupertinoPageScaffold(

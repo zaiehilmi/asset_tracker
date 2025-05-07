@@ -1,9 +1,11 @@
 import 'package:amicons/amicons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:june/state_manager/src/simple/state.dart';
 import 'package:ui/features/dashboard/dashboard_screen.dart';
 import 'package:ui/features/scanner/barcode_scanner_screen.dart';
 import 'package:ui/features/search/main_search_screen.dart';
+import 'package:ui/navigation/application_viewmodel.dart';
 
 const tabIconSize = 28.0;
 
@@ -42,11 +44,31 @@ class Application extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(items: tabBarItems, height: 60),
-      tabBuilder: (BuildContext context, int index) {
-        return CupertinoTabView(builder: (context) => tabViews[index]);
-      },
+    final tabController = useMemoized(CupertinoTabController.new);
+
+    useEffect(() {
+      void listener() {
+        if (tabController.index == 1) {
+          applicationState.brightness = Brightness.dark;
+        } else {
+          applicationState.brightness = Brightness.light;
+        }
+      }
+
+      tabController.addListener(listener);
+      return () => tabController.removeListener(listener);
+    }, [tabController]);
+
+    return JuneBuilder(
+      ApplicationVM.new,
+      builder:
+          (vm) => CupertinoTabScaffold(
+            controller: tabController,
+            tabBar: CupertinoTabBar(items: tabBarItems, height: 60),
+            tabBuilder: (BuildContext context, int index) {
+              return CupertinoTabView(builder: (context) => tabViews[index]);
+            },
+          ),
     );
   }
 }
