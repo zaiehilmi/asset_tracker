@@ -3,7 +3,7 @@ import 'package:ui/database/enums/enums.dart';
 import 'package:ui/database/exceptions/database_exception.dart';
 import 'package:ui/database/tables/items/item.dart';
 import 'package:ui/database/tables/items/item_repository.dart';
-import 'package:ui/features/item_management/model/add_item_model.dart';
+import 'package:ui/features/item_management/add_item/model/add_item_model.dart';
 import 'package:ui/utils/june_mixin.dart';
 import 'package:ui/utils/logger.dart';
 

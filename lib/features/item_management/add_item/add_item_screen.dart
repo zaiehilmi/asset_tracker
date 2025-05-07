@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:june/state_manager/state_manager.dart';
-import 'package:ui/features/item_management/model/add_item_model.dart';
-import 'package:ui/features/item_management/view_model/add_item_viewmodel.dart';
+import 'package:ui/features/item_management/add_item/model/add_item_model.dart';
+import 'package:ui/features/item_management/add_item/view_model/add_item_viewmodel.dart';
 import 'package:ui/features/scanner/barcode_scanner_screen.dart'
     show BarcodeScannerScreen;
 import 'package:ui/features/scanner/view_model/barcode_scanner_viewmodel.dart';
