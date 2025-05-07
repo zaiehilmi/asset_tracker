@@ -23,9 +23,13 @@ extension Navigation on BuildContext {
         });
   }
 
-  void navigateByPushTo({required Widget Function(BuildContext) builder}) {
+  void navigateByPushTo({
+    required Widget Function(BuildContext) builder,
+    bool rootNavigator = false,
+  }) {
     Navigator.of(
       this,
+      rootNavigator: rootNavigator,
     ).push(CupertinoPageRoute<void>(maintainState: false, builder: builder));
   }
 

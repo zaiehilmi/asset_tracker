@@ -1,7 +1,7 @@
 import 'package:june/june.dart';
 
 mixin JuneCustomMixin on JuneState {
-  bool isLoading = true;
+  bool isLoading = false;
 
   /// guna bila ada promises
   void setStateAsync() {
