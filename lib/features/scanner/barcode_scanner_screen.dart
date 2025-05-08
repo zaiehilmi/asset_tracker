@@ -26,33 +26,35 @@ class BarcodeScannerScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final scannerController = useMemoized(MobileScannerController.new);
+    final kodbarController = useState<String?>(null);
 
     void onDetectBarcode(BarcodeCapture capture) {
       final barcode = capture.barcodes.first;
       final value = barcode.rawValue;
       if (value == null || value.isEmpty) return;
 
+      kodbarController.value = value;
       logger.i('Nilai kod bar dikesan: $value');
-      barcodeScannerState.setBarcode = value;
 
       if (directGoOnDetected) {
-        Navigator.of(context).pop();
+        Navigator.of(context).pop(kodbarController.value);
       }
     }
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        barcodeScannerState.resetBarcode();
         applicationState.brightness = Brightness.dark;
       });
 
       return () {
-        if (context.mounted) {
-          applicationState.brightness = Brightness.light;
-        }
-        scannerController
-          ..stop()
-          ..dispose();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          scannerController
+            ..stop()
+            ..dispose();
+          if (context.mounted) {
+            applicationState.brightness = Brightness.light;
+          }
+        });
       };
     }, []);
 
@@ -80,10 +82,14 @@ class BarcodeScannerScreen extends HookWidget {
                         TorchlightButton(
                           onPressed: scannerController.toggleTorch,
                         ),
-                        if (vm.barcode != null && !directGoOnDetected)
+                        if (kodbarController.value != null &&
+                            !directGoOnDetected)
                           CupertinoButton.tinted(
                             child: Text(buttonTitle),
-                            onPressed: () => Navigator.of(context).pop(),
+                            onPressed:
+                                () => Navigator.of(
+                                  context,
+                                ).pop(kodbarController.value),
                           ),
                       ],
                     ),

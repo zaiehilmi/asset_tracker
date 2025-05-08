@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:june/state_manager/state_manager.dart';
 import 'package:ui/features/item_management/add_item/model/add_item_model.dart';
 import 'package:ui/features/item_management/add_item/view_model/add_item_viewmodel.dart';
 import 'package:ui/features/scanner/barcode_scanner_screen.dart'
     show BarcodeScannerScreen;
-import 'package:ui/features/scanner/view_model/barcode_scanner_viewmodel.dart';
 import 'package:ui/navigation/application.dart';
 import 'package:ui/navigation/application_viewmodel.dart' show applicationState;
 import 'package:ui/utils/extension/buildcontext.dart';
@@ -163,10 +161,10 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
 
       context.fullScreenDialogRoute(
         builder: (_) => const BarcodeScannerScreen(buttonTitle: 'Teruskan'),
-        onComplete: () {
+        onComplete: (nilaiKodbar) {
           applicationState.brightness = Brightness.light;
 
-          kodbarController.value = barcodeScannerState.barcode;
+          kodbarController.value = nilaiKodbar as String?;
         },
       );
     }
@@ -210,8 +208,7 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
 
     useEffect(() {
       nameFocusNode.requestFocus();
-
-      return barcodeScannerState.resetBarcode;
+      return null;
     }, const []);
 
     return FullScreenDialogScaffold(
@@ -350,32 +347,27 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
 
             GestureDetector(
               onTap: onTapKodBar,
-              child: JuneBuilder(
-                BarcodeScannerVM.new,
-                builder:
-                    (vm) => Column(
-                      children: [
-                        Icon(
-                          CupertinoIcons.barcode,
-                          size: 80,
-                          color:
-                              (vm.barcode == null)
-                                  ? CupertinoColors.inactiveGray
-                                  : context.primaryColor,
-                        ),
+              child: Column(
+                children: [
+                  Icon(
+                    CupertinoIcons.barcode,
+                    size: 80,
+                    color:
+                        (kodbarController.value == null)
+                            ? CupertinoColors.inactiveGray
+                            : context.primaryColor,
+                  ),
 
-                        Text(
-                          (vm.barcode == null)
-                              ? 'Imbas kod bar untuk memudahkan pencarian'
-                              : 'Kod bar telah didaftarkan',
-                          style: context.textTheme.actionSmallTextStyle
-                              .copyWith(
-                                fontSize: 10,
-                                color: CupertinoColors.systemGrey,
-                              ),
-                        ),
-                      ],
+                  Text(
+                    (kodbarController.value == null)
+                        ? 'Imbas kod bar untuk memudahkan pencarian'
+                        : 'Kod bar telah didaftarkan',
+                    style: context.textTheme.actionSmallTextStyle.copyWith(
+                      fontSize: 10,
+                      color: CupertinoColors.systemGrey,
                     ),
+                  ),
+                ],
               ),
             ),
           ],
