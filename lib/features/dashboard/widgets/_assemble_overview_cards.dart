@@ -26,7 +26,7 @@ class AssembleOverviewCards extends HookWidget {
         builder:
             (vm) => OverviewCard(
               icon: Amicons.vuesax_3d_square_fill,
-              title: 'Jumlah item',
+              title: 'Semua',
               titleColor: CupertinoColors.systemGrey5,
               statNumberColor: CupertinoColors.systemGrey6,
               statNumber: vm.totalItems.toString(),

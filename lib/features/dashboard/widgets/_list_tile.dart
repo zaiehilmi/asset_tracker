@@ -28,7 +28,10 @@ class CustomListTile extends HookWidget {
     }
 
     return CupertinoListTile(
-      padding: const EdgeInsets.symmetric(vertical: Gutters.sm),
+      padding: const EdgeInsets.symmetric(
+        vertical: Gutters.sm,
+        horizontal: Gutters.md,
+      ),
       title: Text(item.itemName),
       subtitle: Text(item.description ?? ''),
       trailing: const CupertinoListTileChevron(),
