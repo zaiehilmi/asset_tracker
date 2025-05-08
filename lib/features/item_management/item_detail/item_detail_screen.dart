@@ -18,7 +18,7 @@ class ItemDetailScreen extends HookWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         trailing: CupertinoButton(
-          child: Icon(Amicons.vuesax_edit),
+          child: const Icon(Amicons.vuesax_edit),
           onPressed: () {},
         ),
       ),

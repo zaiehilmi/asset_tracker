@@ -15,7 +15,7 @@ class MainSearchScreen extends HookWidget {
     return CupertinoPageScaffold(
       child: CustomScrollView(
         slivers: [
-          SliverNavBar(largeTitle: 'Cari', middle: 'Cari'),
+          const SliverNavBar(largeTitle: 'Cari', middle: 'Cari'),
           SliverPersistentHeader(
             pinned: true, // Ini yang akan melekatkan header
             delegate: _SearchBarDelegate(),

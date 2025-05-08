@@ -141,11 +141,11 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
           actions: [
             CupertinoDialogAction(
               isDestructiveAction: true,
-              child: Text('Batal'),
+              child: const Text('Batal'),
               onPressed: () => Navigator.pop(context),
             ),
             CupertinoDialogAction(
-              child: Text('Guna'),
+              child: const Text('Guna'),
               onPressed: () {
                 pautanController.text = clipboardText;
                 Navigator.pop(context);
@@ -193,10 +193,10 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
             content: 'Item telah ditambah',
             actions: [
               CupertinoDialogAction(
-                child: Text('OK'),
+                child: const Text('OK'),
                 onPressed: () {
                   context.navigateByPushAndRemoveUntil(
-                    builder: (_) => Application(),
+                    builder: (_) => const Application(),
                   );
                 },
               ),
@@ -234,7 +234,7 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
                 CupertinoTextFormFieldRow(
                   controller: namaController,
                   focusNode: nameFocusNode,
-                  prefix: PrefixInTextForm(text: 'Nama', isRequired: true),
+                  prefix: const PrefixInTextForm(text: 'Nama', isRequired: true),
                   placeholder: 'Shokubutsu sabun mandi',
                   style: $textStyle,
                   textCapitalization: TextCapitalization.sentences,
@@ -250,7 +250,7 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
                 CupertinoTextFormFieldRow(
                   controller: huraianController,
                   focusNode: huraianFocusNode,
-                  prefix: PrefixInTextForm(text: 'Huraian'),
+                  prefix: const PrefixInTextForm(text: 'Huraian'),
                   placeholder: 'Huraian',
                   style: $textStyle,
                   textCapitalization: TextCapitalization.sentences,
@@ -262,13 +262,13 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
             CupertinoFormSection.insetGrouped(
               children: [
                 CupertinoListTile(
-                  title: PrefixInTextForm(text: 'Sumber'),
+                  title: const PrefixInTextForm(text: 'Sumber'),
                   additionalInfo: placeholderForPicker(
                     value: sumberController.text,
                     style: $textStyle,
                     placeholder: 'Sila pilih',
                   ),
-                  trailing: CupertinoListTileChevron(),
+                  trailing: const CupertinoListTileChevron(),
                   onTap: onTapSumberField,
                 ),
               ],
@@ -281,7 +281,7 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
                 CupertinoTextFormFieldRow(
                   controller: hargaController,
                   focusNode: hargaFocusNode,
-                  prefix: PrefixInTextForm(text: 'RM'),
+                  prefix: const PrefixInTextForm(text: 'RM'),
                   placeholder: '0.00',
                   style: $textStyle,
                   keyboardType: TextInputType.number,
@@ -290,7 +290,7 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
                 CupertinoTextFormFieldRow(
                   controller: pautanController,
                   focusNode: pautanFocusNode,
-                  prefix: PrefixInTextForm(text: 'Pautan'),
+                  prefix: const PrefixInTextForm(text: 'Pautan'),
                   placeholder: 'https://shopee.my',
                   style: $textStyle.copyWith(color: CupertinoColors.systemBlue),
                   keyboardType: TextInputType.url,
@@ -298,23 +298,23 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
                   onTap: onTapPautanField,
                 ),
                 CupertinoListTile(
-                  title: PrefixInTextForm(text: 'Kategori'),
+                  title: const PrefixInTextForm(text: 'Kategori'),
                   additionalInfo: placeholderForPicker(
                     value: kategoriController.text,
                     style: $textStyle,
                     placeholder: 'Sila pilih',
                   ),
-                  trailing: CupertinoListTileChevron(),
+                  trailing: const CupertinoListTileChevron(),
                   onTap: onTapKategoriField,
                 ),
                 CupertinoListTile(
-                  title: PrefixInTextForm(text: 'Status'),
+                  title: const PrefixInTextForm(text: 'Status'),
                   additionalInfo: placeholderForPicker(
                     value: statusController.text,
                     style: $textStyle,
                     placeholder: 'Sila pilih',
                   ),
-                  trailing: CupertinoListTileChevron(),
+                  trailing: const CupertinoListTileChevron(),
                   onTap: onTapStatusField,
                 ),
               ],
@@ -323,23 +323,23 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
             CupertinoFormSection.insetGrouped(
               children: [
                 CupertinoListTile(
-                  title: PrefixInTextForm(text: 'Tarikh beli', width: 70),
+                  title: const PrefixInTextForm(text: 'Tarikh beli', width: 70),
                   additionalInfo: placeholderForPicker(
                     value: tarikhPembelian.value.tarikhNumeral,
                     style: $textStyle,
                     placeholder: 'Sila pilih tarikh',
                   ),
-                  trailing: CupertinoListTileChevron(),
+                  trailing: const CupertinoListTileChevron(),
                   onTap: onTapTarikhPembelian,
                 ),
                 CupertinoListTile(
-                  title: PrefixInTextForm(text: 'Tarikh luput', width: 70),
+                  title: const PrefixInTextForm(text: 'Tarikh luput', width: 70),
                   additionalInfo: placeholderForPicker(
                     value: tarikhLuput.value.tarikhNumeral,
                     style: $textStyle,
                     placeholder: 'Sila pilih tarikh',
                   ),
-                  trailing: CupertinoListTileChevron(),
+                  trailing: const CupertinoListTileChevron(),
                   onTap: onTapTarikhLuput,
                 ),
               ],

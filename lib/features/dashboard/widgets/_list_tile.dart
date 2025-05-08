@@ -16,22 +16,22 @@ class CustomListTile extends HookWidget {
     Future<void> onTapTile() async {
       await dashboardState.fetchItem(item.id);
 
-      Future.delayed(Duration(milliseconds: 300), () {
+      Future.delayed(const Duration(milliseconds: 300), () {
         if (context.mounted) {
           context.navigateByPushTo(
             rootNavigator: true,
             maintainState: true,
-            builder: (_) => ItemDetailScreen(),
+            builder: (_) => const ItemDetailScreen(),
           );
         }
       });
     }
 
     return CupertinoListTile(
-      padding: EdgeInsets.symmetric(vertical: Gutters.sm),
+      padding: const EdgeInsets.symmetric(vertical: Gutters.sm),
       title: Text(item.itemName),
       subtitle: Text(item.description ?? ''),
-      trailing: CupertinoListTileChevron(),
+      trailing: const CupertinoListTileChevron(),
       onTap: onTapTile,
     );
   }

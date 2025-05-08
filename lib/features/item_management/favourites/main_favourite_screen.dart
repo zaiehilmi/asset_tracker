@@ -7,10 +7,10 @@ class MainFavouriteScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(automaticallyImplyMiddle: false),
+      navigationBar: const CupertinoNavigationBar(automaticallyImplyMiddle: false),
       child: Center(
         child: CupertinoButton(
-          child: Text('Go back'),
+          child: const Text('Go back'),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),

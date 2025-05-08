@@ -59,7 +59,7 @@ class BarcodeScannerScreen extends HookWidget {
     }, []);
 
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(automaticallyImplyMiddle: false),
+      navigationBar: const CupertinoNavigationBar(automaticallyImplyMiddle: false),
       child: SafeArea(
         child: JuneBuilder(
           BarcodeScannerVM.new,

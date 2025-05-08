@@ -22,7 +22,7 @@ class ActionsView extends HookWidget {
         onTap:
             () => context.fullScreenDialogRoute<void>(
               rootNavigator: true,
-              builder: (_) => AddItemScreen(),
+              builder: (_) => const AddItemScreen(),
             ),
       ),
       _buildTile(
@@ -54,7 +54,7 @@ class ActionsView extends HookWidget {
     return CupertinoFormSection.insetGrouped(
       backgroundColor: CupertinoColors.systemBackground,
       clipBehavior: Clip.hardEdge,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: Gutters.md,
         vertical: Gutters.sm,
       ),
@@ -81,7 +81,7 @@ CupertinoListTile _buildTile(
       ),
       overflow: TextOverflow.ellipsis,
     ),
-    trailing: CupertinoListTileChevron(),
+    trailing: const CupertinoListTileChevron(),
     subtitle: (subtitle != null) ? Text(subtitle) : null,
     onTap: onTap,
   );

@@ -36,19 +36,19 @@ class AssembleOverviewCards extends HookWidget {
               isLoading: vm.totalItems == null,
             ),
       ),
-      OverviewCard(
+      const OverviewCard(
         icon: Amicons.vuesax_clock_fill,
         title: 'Hampir tamat tempoh',
         statNumber: '10',
         iconBackgroundColor: AppColors.color2,
       ),
-      OverviewCard(
+      const OverviewCard(
         icon: Amicons.vuesax_3_square_fill,
         title: 'Perlu diservis',
         statNumber: '4',
         iconBackgroundColor: AppColors.color3,
       ),
-      OverviewCard(
+      const OverviewCard(
         icon: Amicons.vuesax_3_square_fill,
         title: 'Perlu diservis',
         statNumber: '4',

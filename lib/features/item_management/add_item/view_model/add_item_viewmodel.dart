@@ -48,7 +48,7 @@ class AddItemVM extends JuneState with JuneCustomMixin {
     logger.i('Item: ${item.toJsonString()}');
 
     try {
-      // await ItemRepository().insert(item);
+      await ItemRepository().insert(item);
       setStateAsync();
       return true;
     } on DatabaseException catch (e) {

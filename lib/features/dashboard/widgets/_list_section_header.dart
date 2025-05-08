@@ -31,7 +31,7 @@ class ListSectionHeader extends HookWidget {
               fontSize: 20,
             ),
           ),
-          CupertinoListTileChevron(),
+          const CupertinoListTileChevron(),
         ],
       ),
     );

@@ -21,18 +21,18 @@ class TorchlightButton extends HookWidget {
 
     if (isTurnOn.value) {
       return CupertinoButton.filled(
-        padding: EdgeInsets.all(Gutters.md),
+        padding: const EdgeInsets.all(Gutters.md),
         borderRadius: BorderRadius.circular(AppBorder.full),
         onPressed: handlePress,
-        child: Icon(CupertinoIcons.bolt_fill, size: iconSize),
+        child: const Icon(CupertinoIcons.bolt_fill, size: iconSize),
       );
     }
 
     return CupertinoButton.tinted(
-      padding: EdgeInsets.all(Gutters.md),
+      padding: const EdgeInsets.all(Gutters.md),
       borderRadius: BorderRadius.circular(AppBorder.full),
       onPressed: handlePress,
-      child: Icon(CupertinoIcons.bolt, size: iconSize),
+      child: const Icon(CupertinoIcons.bolt, size: iconSize),
     );
   }
 }

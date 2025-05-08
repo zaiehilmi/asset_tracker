@@ -33,10 +33,10 @@ final tabBarItems = [
 ];
 
 final tabViews = <Widget>[
-  DashboardScreen(),
-  BarcodeScannerScreen(),
-  MainSearchScreen(),
-  BarcodeScannerScreen(),
+  const DashboardScreen(),
+  const BarcodeScannerScreen(),
+  const MainSearchScreen(),
+  const BarcodeScannerScreen(),
 ];
 
 class Application extends HookWidget {

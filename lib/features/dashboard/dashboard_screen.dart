@@ -29,7 +29,7 @@ class DashboardScreen extends HookWidget {
             child: CupertinoPageScaffold(
               child: CustomScrollView(
                 slivers: [
-                  SliverNavBar(largeTitle: _title, middle: _title),
+                  const SliverNavBar(largeTitle: _title, middle: _title),
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -44,9 +44,9 @@ class DashboardScreen extends HookWidget {
                     padding: EdgeInsets.only(bottom: bottomPadding),
                     sliver: SliverList(
                       delegate: SliverChildListDelegate([
-                        AssembleOverviewCards(),
-                        ActionsView(),
-                        RecentlyAddedView(),
+                        const AssembleOverviewCards(),
+                        const ActionsView(),
+                        const RecentlyAddedView(),
                       ]),
                     ),
                   ),

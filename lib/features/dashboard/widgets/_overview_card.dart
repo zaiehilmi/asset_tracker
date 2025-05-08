@@ -54,7 +54,7 @@ class OverviewCard extends HookWidget {
             children: [
               if (icon != null)
                 Container(
-                  padding: EdgeInsets.all(Gutters.xs),
+                  padding: const EdgeInsets.all(Gutters.xs),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppBorder.full),
                     color: iconBackgroundColor,
@@ -62,7 +62,7 @@ class OverviewCard extends HookWidget {
                   child: Icon(icon, color: iconColor, size: iconSize),
                 ),
               Padding(
-                padding: EdgeInsets.only(right: Gutters.md),
+                padding: const EdgeInsets.only(right: Gutters.md),
                 child:
                     isLoading
                         ? CupertinoActivityIndicator(

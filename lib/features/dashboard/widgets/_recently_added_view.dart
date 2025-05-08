@@ -35,7 +35,7 @@ class RecentlyAddedView extends HookWidget {
             ),
             children: [
               if (vm.isLoading)
-                CupertinoActivityIndicator()
+                const CupertinoActivityIndicator()
               else
                 ...?vm.recentlyAddedItems?.map(
                   (item) => CustomListTile(item: item),

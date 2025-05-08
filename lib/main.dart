@@ -37,7 +37,7 @@ class MainApp extends HookWidget {
       builder:
           (vm) => CupertinoApp(
             theme: temaAplikasi.copyWith(brightness: vm.brightness),
-            localizationsDelegates: [
+            localizationsDelegates: const [
               DefaultWidgetsLocalizations.delegate,
               DefaultCupertinoLocalizations.delegate,
               CupertinoLocalizationsMsDelegate(),
