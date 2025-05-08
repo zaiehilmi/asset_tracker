@@ -20,6 +20,7 @@ dependencies:
   mobile_scanner: ^7.0.0
   roggle: ^0.4.2+1
   supabase_flutter: ^2.9.0
+  swipeable_page_route: ^0.4.7
 
 dev_dependencies:
   custom_lint: ^0.7.5

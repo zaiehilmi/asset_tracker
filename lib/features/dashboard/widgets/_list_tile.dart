@@ -16,13 +16,15 @@ class CustomListTile extends HookWidget {
     Future<void> onTapTile() async {
       await dashboardState.fetchItem(item.id);
 
-      if (context.mounted) {
-        context.navigateByPushTo(
-          rootNavigator: true,
-          maintainState: true,
-          builder: (_) => ItemDetailScreen(),
-        );
-      }
+      Future.delayed(Duration(milliseconds: 300), () {
+        if (context.mounted) {
+          context.navigateByPushTo(
+            rootNavigator: true,
+            maintainState: true,
+            builder: (_) => ItemDetailScreen(),
+          );
+        }
+      });
     }
 
     return CupertinoListTile(

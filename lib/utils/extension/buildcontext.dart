@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 extension BuildContextExtension on BuildContext {
   CupertinoTextThemeData get textTheme => CupertinoTheme.of(this).textTheme;
@@ -28,13 +29,8 @@ extension Navigation on BuildContext {
     bool rootNavigator = false,
     bool maintainState = false,
   }) {
-    Navigator.push(this, CupertinoPageRoute<void>(builder: builder));
-    Future<void>.delayed(
-      Duration(milliseconds: 500),
-    ).then((_) => Navigator.pop(this));
-
     Navigator.of(this, rootNavigator: rootNavigator).push(
-      CupertinoPageRoute<void>(maintainState: maintainState, builder: builder),
+      SwipeablePageRoute<void>(maintainState: maintainState, builder: builder),
     );
   }
 
