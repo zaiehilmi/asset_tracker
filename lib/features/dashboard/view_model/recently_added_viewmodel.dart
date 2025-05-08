@@ -3,7 +3,7 @@ import 'package:ui/database/tables/tables.dart';
 import 'package:ui/features/dashboard/model/recently_added_model.dart'
     show RecentlyAddedModel;
 import 'package:ui/utils/june_mixin.dart' show JuneCustomMixin;
-import 'package:ui/utils/logger.dart';
+import 'package:ui/utils/logger.dart' show logger;
 
 final recentlyAddedState = June.getState(RecentlyAddedVM.new);
 

@@ -25,23 +25,6 @@ class ItemTable {
 }
 
 class Item {
-  /// semasa kemasukan data ke database, id boleh diisi dengan data yang salah seperti empty string
-  final String id;
-  final String name;
-  final DateTime? purchaseDate;
-  final DateTime? expiryDate;
-  final double? price;
-  final String? location;
-  final String? notes;
-  final Source? source;
-  final Category? category;
-  final DateTime? addedDate;
-  final String? barcode;
-  final String? parentItemId;
-  final DateTime? lastUpdatedDate;
-  final Status? status;
-  final String? urlLink;
-
   Item({
     required this.id,
     required this.name,
@@ -103,6 +86,23 @@ class Item {
       urlLink: json[ItemTable.urlLink] as String?,
     );
   }
+
+  /// semasa kemasukan data ke database, id boleh diisi dengan data yang salah seperti empty string
+  final String id;
+  final String name;
+  final DateTime? purchaseDate;
+  final DateTime? expiryDate;
+  final double? price;
+  final String? location;
+  final String? notes;
+  final Source? source;
+  final Category? category;
+  final DateTime? addedDate;
+  final String? barcode;
+  final String? parentItemId;
+  final DateTime? lastUpdatedDate;
+  final Status? status;
+  final String? urlLink;
 }
 
 extension ItemUtility on Item {

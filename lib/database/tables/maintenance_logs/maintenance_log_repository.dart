@@ -1,6 +1,5 @@
 import 'package:ui/database/database_client.dart';
-import 'package:ui/database/exceptions/database_exception.dart'
-    show DatabaseException;
+import 'package:ui/database/exceptions/database_exception.dart';
 import 'package:ui/database/tables/maintenance_logs/maintenance_log.dart';
 import 'package:ui/database/tables/repository.dart' show Repository;
 
@@ -48,7 +47,7 @@ class MaintenanceLogRepository implements Repository<MaintenanceLog> {
   }
 
   @override
-  Future<ListOfLogs> readByEquals(String column, value) async {
+  Future<ListOfLogs> readByEquals(String column, Object value) async {
     try {
       if (column.isEmpty) {
         throw DatabaseException('Column name cannot be empty');

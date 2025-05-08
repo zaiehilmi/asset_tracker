@@ -31,7 +31,6 @@ List<KategoriData> kategoriData =
             'Perabot' => KategoriData(
               kategori: kategori,
               icon: Amicons.flaticon_bed_rounded_fill,
-              backgroundColor: CupertinoColors.systemBrown,
             ),
             'Makanan & Minuman' => KategoriData(
               kategori: kategori,

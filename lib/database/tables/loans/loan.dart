@@ -12,15 +12,6 @@ class LoanTable {
 }
 
 class Loan {
-  final String id;
-  final String itemId;
-  final String borrowerName;
-  final DateTime? loanDate;
-  final DateTime? returnDate;
-
-  /// true untuk dipulangkan, false untuk belum dipulangkan
-  final bool? status;
-
   Loan({
     required this.id,
     required this.itemId,
@@ -46,6 +37,15 @@ class Loan {
       status: json[LoanTable.status] as bool?,
     );
   }
+
+  final String id;
+  final String itemId;
+  final String borrowerName;
+  final DateTime? loanDate;
+  final DateTime? returnDate;
+
+  /// true untuk dipulangkan, false untuk belum dipulangkan
+  final bool? status;
 }
 
 extension LoanUtility on Loan {

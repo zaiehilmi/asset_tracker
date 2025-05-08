@@ -1,9 +1,8 @@
 import 'package:ui/database/database_client.dart';
-import 'package:ui/database/exceptions/database_exception.dart'
-    show DatabaseException;
+import 'package:ui/database/exceptions/database_exception.dart';
 import 'package:ui/database/tables/loans/loan.dart';
 
-import '../repository.dart';
+import 'package:ui/database/tables/repository.dart';
 
 typedef ListOfLoans = List<Loan>;
 
@@ -14,7 +13,7 @@ class LoanRepository implements Repository<Loan> {
   Future<ListOfLoans> readAll() async {
     try {
       final data = await _supabase.from(LoanTable.tableName).select();
-      return data.map((e) => Loan.fromJson(e)).toList();
+      return data.map(Loan.fromJson).toList();
     } catch (e) {
       throw DatabaseException('Failed to fetch all loans: $e');
     }
@@ -48,7 +47,7 @@ class LoanRepository implements Repository<Loan> {
   }
 
   @override
-  Future<ListOfLoans> readByEquals(String column, value) async {
+  Future<ListOfLoans> readByEquals(String column, Object value) async {
     try {
       if (column.isEmpty) {
         throw DatabaseException('Column name cannot be empty');
@@ -58,7 +57,7 @@ class LoanRepository implements Repository<Loan> {
           .select()
           .eq(column, value);
 
-      return data.map((e) => Loan.fromJson(e)).toList();
+      return data.map(Loan.fromJson).toList();
     } catch (e) {
       throw DatabaseException(
         'Failed to fetch loans where $column equals $value: $e',

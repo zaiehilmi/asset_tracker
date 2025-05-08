@@ -11,12 +11,6 @@ class MaintenanceLogTable {
 }
 
 class MaintenanceLog {
-  final String id;
-  final String itemId;
-  final DateTime? date;
-  final String? description;
-  final double? cost;
-
   MaintenanceLog({
     required this.id,
     required this.itemId,
@@ -40,6 +34,12 @@ class MaintenanceLog {
               : null, // Menggunakan null safety operator
     );
   }
+
+  final String id;
+  final String itemId;
+  final DateTime? date;
+  final String? description;
+  final double? cost;
 }
 
 extension MaintenanceLogUtility on MaintenanceLog {

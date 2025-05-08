@@ -1,7 +1,7 @@
 import 'package:june/june.dart';
 import 'package:roggle/roggle.dart';
 import 'package:ui/database/tables/tables.dart';
-import 'package:ui/utils/june_mixin.dart';
+import 'package:ui/utils/june_mixin.dart' show JuneCustomMixin;
 import 'package:ui/utils/logger.dart' show logger;
 
 final overviewStatisticsState = June.getState(OverviewStatisticsVM.new);
