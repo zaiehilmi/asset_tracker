@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:june/state_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:ui/config.dart';
-import 'package:ui/localization/cupertino_localization_ms.dart'
-    show CupertinoLocalizationsMsDelegate;
+import 'package:ui/localization/localization.dart';
 import 'package:ui/navigation/application.dart';
 import 'package:ui/navigation/application_viewmodel.dart' show ApplicationVM;
 import 'package:ui/theme/theme_data.dart';
@@ -23,6 +23,10 @@ Future<void> main() async {
     url: Config.supabaseUrl,
     anonKey: Config.supabaseKey,
   );
+
+  timeago.setLocaleMessages('ms', TimeagoLocalizationMs());
+  timeago.setLocaleMessages('ms_short', TimeagoShortLocalizationMs());
+  timeago.setDefaultLocale('ms');
 
   runApp(const MainApp());
 }

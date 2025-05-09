@@ -27,19 +27,23 @@ class ItemDetailScreen extends HookWidget {
         bottom: false,
         child: JuneBuilder(
           ItemDetailVM.new,
-          builder:
-              (vm) => ListView(
-                padding: EdgeInsets.symmetric(horizontal: Gutters.md),
-                children: [
-                  Text(
-                    vm.itemDetailModel.nama,
-                    style: context.textTheme.navTitleTextStyle.copyWith(
-                      fontSize: 30,
-                    ),
+          builder: (vm) {
+            final model = vm.itemDetailModel;
+
+            return ListView(
+              padding: EdgeInsets.symmetric(horizontal: Gutters.md),
+              children: [
+                Text(
+                  model.nama,
+                  style: context.textTheme.navTitleTextStyle.copyWith(
+                    fontSize: 30,
                   ),
-                  Text(vm.itemDetailModel.usiaItem),
-                ],
-              ),
+                ),
+                Text('Usia item: ${model.usiaItem}'),
+                Text(model.terakhirDikemaskini),
+              ],
+            );
+          },
         ),
       ),
     );
