@@ -18,7 +18,7 @@ final tabBarItems = [
   const BottomNavigationBarItem(
     icon: Icon(Amicons.lucide_scan_barcode, size: tabIconSize),
     activeIcon: Icon(Amicons.lucide_scan, size: tabIconSize),
-    label: 'Kamera',
+    label: 'Imbas',
   ),
   const BottomNavigationBarItem(
     icon: Icon(Amicons.iconly_search, size: tabIconSize),

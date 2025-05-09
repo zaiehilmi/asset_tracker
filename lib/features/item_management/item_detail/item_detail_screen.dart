@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:june/june.dart';
 import 'package:ui/features/item_management/item_detail/view_model/item_detail_viewmodel.dart';
+import 'package:ui/theme/theme.dart' show Gutters;
+import 'package:ui/utils/extension/buildcontext.dart';
 import 'package:ui/utils/logger.dart';
 
 class ItemDetailScreen extends HookWidget {
@@ -11,7 +13,6 @@ class ItemDetailScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     useEffect(() {
-      logger.d(itemDetailState.item?.name);
       return null;
     }, []);
 
@@ -22,9 +23,24 @@ class ItemDetailScreen extends HookWidget {
           onPressed: () {},
         ),
       ),
-      child: JuneBuilder(
-        ItemDetailVM.new,
-        builder: (vm) => ListView(children: [Text(vm.item?.name ?? '')]),
+      child: SafeArea(
+        bottom: false,
+        child: JuneBuilder(
+          ItemDetailVM.new,
+          builder:
+              (vm) => ListView(
+                padding: EdgeInsets.symmetric(horizontal: Gutters.md),
+                children: [
+                  Text(
+                    vm.itemDetailModel.nama,
+                    style: context.textTheme.navTitleTextStyle.copyWith(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Text(vm.itemDetailModel.usiaItem),
+                ],
+              ),
+        ),
       ),
     );
   }
