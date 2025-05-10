@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:june/june.dart';
 import 'package:ui/features/dashboard/view_model/dashboard_viewmodel.dart';
+import 'package:ui/features/dashboard/view_model/overview_viewmodel.dart';
+import 'package:ui/features/dashboard/view_model/recently_added_viewmodel.dart';
 import 'package:ui/features/dashboard/widgets/_actions_view.dart';
 import 'package:ui/features/dashboard/widgets/_assemble_overview_cards.dart';
 import 'package:ui/features/dashboard/widgets/_recently_added_view.dart';
@@ -20,6 +22,16 @@ class DashboardScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final bottomPadding = context.padding.bottom + kBottomNavigationBarHeight;
+
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) {
+          recentlyAddedState.fetchRecentlyAddedItems();
+          overviewStatisticsState.fetchTotalItems();
+        }
+      });
+      return null;
+    }, []);
 
     return JuneBuilder(
       DashboardVM.new,

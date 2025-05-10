@@ -30,7 +30,7 @@ class AddItemVM extends JuneState with JuneCustomMixin {
           (model?.harga != null && model!.harga!.isNotEmpty)
               ? double.tryParse(model!.harga!)
               : null,
-      urlLink: model?.pautan,
+      urlLink: model!.pautan!.isEmpty ? null : model!.pautan,
       source: model?.sumber != null ? Source.fromDisplay(model!.sumber!) : null,
       category:
           (model?.kategori != null && model!.kategori!.isNotEmpty)

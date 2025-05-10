@@ -14,11 +14,11 @@ class AssembleOverviewCards extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    useEffect(() {
-      overviewStatisticsState.fetchTotalItems();
+    // useEffect(() {
+    //   overviewStatisticsState.fetchTotalItems();
 
-      return null;
-    }, []);
+    //   return null;
+    // }, []);
 
     final cards = [
       JuneBuilder(

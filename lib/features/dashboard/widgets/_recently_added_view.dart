@@ -14,11 +14,11 @@ class RecentlyAddedView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    useEffect(() {
-      recentlyAddedState.fetchRecentlyAddedItems();
+    // useEffect(() {
+    //   recentlyAddedState.fetchRecentlyAddedItems();
 
-      return null;
-    }, []);
+    //   return null;
+    // }, []);
 
     return JuneBuilder(
       RecentlyAddedVM.new,

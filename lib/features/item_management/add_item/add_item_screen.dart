@@ -234,7 +234,10 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
                 CupertinoTextFormFieldRow(
                   controller: namaController,
                   focusNode: nameFocusNode,
-                  prefix: const PrefixInTextForm(text: 'Nama', isRequired: true),
+                  prefix: const PrefixInTextForm(
+                    text: 'Nama',
+                    isRequired: true,
+                  ),
                   placeholder: 'Shokubutsu sabun mandi',
                   style: $textStyle,
                   textCapitalization: TextCapitalization.sentences,
@@ -333,7 +336,10 @@ class AddItemScreen extends HookWidget with WidgetsBindingObserver {
                   onTap: onTapTarikhPembelian,
                 ),
                 CupertinoListTile(
-                  title: const PrefixInTextForm(text: 'Tarikh luput', width: 70),
+                  title: const PrefixInTextForm(
+                    text: 'Tarikh luput',
+                    width: 70,
+                  ),
                   additionalInfo: placeholderForPicker(
                     value: tarikhLuput.value.tarikhNumeral,
                     style: $textStyle,
