@@ -67,7 +67,7 @@ class Application extends HookWidget {
             tabBar: CupertinoTabBar(
               items: tabBarItems,
               height: 60,
-              backgroundColor: CupertinoColors.systemBackground.withAlpha(180),
+              backgroundColor: CupertinoColors.systemBackground,
             ),
             tabBuilder: (BuildContext context, int index) {
               return CupertinoTabView(builder: (context) => tabViews[index]);
