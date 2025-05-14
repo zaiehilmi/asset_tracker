@@ -6,7 +6,7 @@ import 'package:ui/features/dashboard/view_model/dashboard_viewmodel.dart';
 import 'package:ui/features/dashboard/view_model/overview_viewmodel.dart';
 import 'package:ui/features/dashboard/view_model/recently_added_viewmodel.dart';
 import 'package:ui/features/dashboard/widgets/_actions_view.dart';
-import 'package:ui/features/dashboard/widgets/_assemble_overview_cards.dart';
+import 'package:ui/features/dashboard/widgets/_overview_card_collection.dart';
 import 'package:ui/features/dashboard/widgets/_recently_added_view.dart';
 import 'package:ui/theme/guttters.dart';
 import 'package:ui/utils/extension/buildcontext.dart';
@@ -56,7 +56,7 @@ class DashboardScreen extends HookWidget {
                     padding: EdgeInsets.only(bottom: bottomPadding),
                     sliver: SliverList(
                       delegate: SliverChildListDelegate([
-                        const AssembleOverviewCards(),
+                        const OverviewCardCollection(),
                         const ActionsView(),
                         const RecentlyAddedView(),
                       ]),

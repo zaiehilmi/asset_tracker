@@ -9,8 +9,8 @@ import 'package:ui/theme/color.dart' show AppColors;
 import 'package:ui/theme/guttters.dart' show Gutters;
 import 'package:ui/utils/extension/buildcontext.dart';
 
-class AssembleOverviewCards extends HookWidget {
-  const AssembleOverviewCards({super.key});
+class OverviewCardCollection extends HookWidget {
+  const OverviewCardCollection({super.key});
 
   @override
   Widget build(BuildContext context) {
