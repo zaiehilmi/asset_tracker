@@ -12,6 +12,22 @@ extension BuildContextExtension on BuildContext {
 }
 
 extension Navigation on BuildContext {
+  /// gunakan bersama dengan [context.popSheetRoute()] untuk menutup sheet route (jika perlu)
+  void sheetRoute<T>({
+    required Widget Function(BuildContext) builder,
+    bool rootNavigator = false,
+    void Function(T?)? onComplete,
+  }) {
+    Navigator.of(
+      this,
+      rootNavigator: rootNavigator,
+    ).push<T>(CupertinoSheetRoute(builder: builder)).then((value) {
+      onComplete?.call(value);
+    });
+  }
+
+  void popSheetRoute() => CupertinoSheetRoute.popSheet(this);
+
   void fullScreenDialogRoute<T>({
     required Widget Function(BuildContext) builder,
     void Function(T?)? onComplete,
