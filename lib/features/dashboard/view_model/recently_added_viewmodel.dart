@@ -18,7 +18,7 @@ class RecentlyAddedVM extends JuneState with JuneCustomMixin {
       limit: 5,
       isAscending: false,
     );
-    logger.i('ada ${items.length} daripada 5 item terbaru ditambah');
+    logger.i('ada ${items.length} item terbaru ditambah');
 
     recentlyAddedItems =
         items

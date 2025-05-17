@@ -1,11 +1,10 @@
 import 'package:amicons/amicons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:june/june.dart';
-import 'package:ui/features/item_management/item_detail/view_model/item_detail_viewmodel.dart';
-import 'package:ui/theme/theme.dart' show Gutters;
-import 'package:ui/utils/extension/buildcontext.dart';
-import 'package:ui/utils/logger.dart';
+import 'package:ui/features/item_management/item_detail/widgets/_body_detail.dart';
+import 'package:ui/features/item_management/item_detail/widgets/_brief_detail.dart';
+import 'package:ui/features/item_management/item_detail/widgets/_header_detail.dart'
+    show HeaderDetail;
 
 class ItemDetailScreen extends HookWidget {
   const ItemDetailScreen({super.key});
@@ -17,6 +16,7 @@ class ItemDetailScreen extends HookWidget {
     }, []);
 
     return CupertinoPageScaffold(
+      backgroundColor: CupertinoColors.systemGroupedBackground,
       navigationBar: CupertinoNavigationBar(
         trailing: CupertinoButton(
           child: const Icon(Amicons.vuesax_edit),
@@ -25,25 +25,8 @@ class ItemDetailScreen extends HookWidget {
       ),
       child: SafeArea(
         bottom: false,
-        child: JuneBuilder(
-          ItemDetailVM.new,
-          builder: (vm) {
-            final model = vm.itemDetailModel;
-
-            return ListView(
-              padding: EdgeInsets.symmetric(horizontal: Gutters.md),
-              children: [
-                Text(
-                  model.nama,
-                  style: context.textTheme.navTitleTextStyle.copyWith(
-                    fontSize: 30,
-                  ),
-                ),
-                Text('Usia item: ${model.usiaItem}'),
-                Text(model.terakhirDikemaskini),
-              ],
-            );
-          },
+        child: ListView(
+          children: [HeaderDetail(), BriefDetail(), BodyDetail()],
         ),
       ),
     );
