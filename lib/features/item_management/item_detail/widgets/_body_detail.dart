@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:june/state_manager/state_manager.dart';
 import 'package:ui/features/item_management/item_detail/view_model/item_detail_viewmodel.dart';
+import 'package:ui/utils/extension/buildcontext.dart';
 
 class BodyDetail extends HookWidget {
   const BodyDetail({super.key});
+
   @override
   Widget build(BuildContext context) {
     return JuneBuilder(
@@ -14,51 +16,67 @@ class BodyDetail extends HookWidget {
         final model = vm.itemDetailModel;
 
         return CupertinoFormSection.insetGrouped(
-          children: [
-            if (model.harga != null)
-              CupertinoListTile(
-                leading: Icon(
-                  CupertinoIcons.money_dollar_circle_fill,
-                  color: CupertinoColors.systemGreen.withAlpha(vm.alpha),
-                ),
-                title: Text(model.harga!),
+          children: List<Widget>.from(
+            [
+              _listTile(
+                context,
+                leadingIcon: CupertinoIcons.money_dollar,
+                title: model.harga,
               ),
-            if (model.pautan != null)
-              // rasanya tak perlu ada field dia tersendiri. letak je kat bawah
-              CupertinoListTile(
-                leading: Icon(
-                  CupertinoIcons.link,
-                  color: CupertinoColors.link.withAlpha(vm.alpha),
-                ),
-                title: Text(model.pautan!),
+              _listTile(
+                context,
+                leadingIcon: CupertinoIcons.link,
+                title: model.pautan,
               ),
-            if (model.kategori != null)
-              CupertinoListTile(
-                leading: Icon(
-                  CupertinoIcons.tag_solid,
-                  color: CupertinoColors.systemIndigo.withAlpha(vm.alpha),
-                ),
-                title: Text(model.kategori!),
+              _listTile(
+                context,
+                leadingIcon: CupertinoIcons.tag,
+                title: model.kategori,
               ),
-            if (model.sumber != null)
-              CupertinoListTile(
-                leading: Icon(
-                  CupertinoIcons.shopping_cart,
-                  color: CupertinoColors.systemMint.withAlpha(vm.alpha),
-                ),
-                title: Text(model.sumber!),
+              _listTile(
+                context,
+                leadingIcon: CupertinoIcons.shopping_cart,
+                title:
+                    (model.sumber != null)
+                        ? 'diperoleh dari ${model.sumber!.toLowerCase()}'
+                        : null,
               ),
-            if (model.status != null)
-              CupertinoListTile(
-                leading: Icon(
-                  Amicons.vuesax_status_fill,
-                  color: CupertinoColors.systemOrange.withAlpha(vm.alpha),
-                ),
-                title: Text(model.status!),
+              _listTile(
+                context,
+                leadingIcon: Amicons.vuesax_status,
+                title:
+                    (model.status != null)
+                        ? 'kini ${model.status!.toLowerCase()}'
+                        : null,
               ),
-          ],
+            ].where((widget) => widget != null),
+          ),
         );
       },
     );
+  }
+
+  Widget? _listTile(
+    BuildContext context, {
+    required IconData leadingIcon,
+    required String? title,
+    Widget? trailing,
+  }) {
+    if (title != null) {
+      return CupertinoListTile(
+        leading: Icon(
+          leadingIcon,
+          size: 20,
+          color: CupertinoColors.systemFill.withAlpha(150),
+        ),
+        title: Text(
+          title,
+          style: context.textTheme.textStyle.copyWith(fontSize: 14),
+        ),
+        trailing: trailing,
+      );
+    }
+
+    return null;
   }
 }

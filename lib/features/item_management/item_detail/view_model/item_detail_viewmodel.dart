@@ -11,7 +11,6 @@ final itemDetailState = June.getState(ItemDetailVM.new);
 class ItemDetailVM extends JuneState with JuneCustomMixin {
   Item? _item;
   late ItemDetailModel itemDetailModel;
-  final int alpha = 180;
 
   Future<void> fetchItem(String id) async {
     resetLoading();
@@ -20,10 +19,13 @@ class ItemDetailVM extends JuneState with JuneCustomMixin {
     itemDetailModel = ItemDetailModel(
       nama: _item!.name,
       nota: _item!.notes,
-      usiaItem: _item!.addedDate.berbandingSekarang,
+      usiaItem: _item!.purchaseDate.berbandingSekarang,
       kodbarDidaftarkan: _item!.barcode != null,
       terakhirDikemaskini: _item!.lastUpdatedDate.berbandingSekarang,
-      harga: (_item?.price != null) ? 'RM ${_item!.price}' : null,
+      harga:
+          (_item?.price != null)
+              ? 'RM ${_item!.price!.toStringAsFixed(2)}'
+              : null,
       tarikhPemilikan:
           '${_item!.purchaseDate.tarikhNumeral} ${_item!.purchaseDate.berbandingSekarang}',
       tarikhLuput:
